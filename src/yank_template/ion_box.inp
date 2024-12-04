@@ -1,0 +1,25 @@
+# Packmol input template
+#
+# Add POT to Ion-ligand config
+#
+tolerance 2.0
+
+filetype pdb
+resnumbers 0
+
+# Place ion-lig in center of smaller box 20A
+#structure calXXX_lastrenum.pdb
+structure cal.pdb
+  number 1 
+  inside box -0.00 -0.00 -0.00 0.0 0.0 0.0
+end structure
+
+# Place POT ions in the same box 20A
+structure cla.pdb
+  number 2 
+  outside sphere 0. 0. 0. 20.
+  inside box -25.0 -25.0 -25.0 25.0 25.0 25.0
+end structure
+
+# Write the box pdb
+output cal_cla.pdb 

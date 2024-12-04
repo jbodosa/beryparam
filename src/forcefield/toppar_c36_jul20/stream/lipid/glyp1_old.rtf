@@ -1,0 +1,72 @@
+
+RESI GLY1         -1.000 ! Used DLPA as reference 
+GROUP                    ! 				 HP11
+ATOM P1   PL       1.500 !				  |
+ATOM OP3  O2L     -0.820 !		   (-)OP3 OP1
+ATOM OP4  O2L     -0.820 !            \   /
+ATOM OP1  OHL     -0.680 !             \ / 
+ATOM HP11 HOL      0.340 !              P1(+)
+ATOM OP2  OSLP    -0.620 !       	   /  \
+ATOM C3   CTL2    -0.080 !        (-)OP4   OP2      
+ATOM H31  HAL2     0.090 !                 \ 
+ATOM H32  HAL2     0.090 !                  \ 
+GROUP                    !                   | 
+ATOM C1   CTL2     0.080 !         H12  H21  | 
+ATOM H11  HAL2     0.090 !          |    |   | 
+ATOM H12  HAL2     0.090 !     H11--C1--C2--C3--H31 
+ATOM O4   OSL     -0.490 !          /    |   | 
+ATOM C5   CL       0.900 !         O4   O8  H32 
+ATOM O6   OBL     -0.630 !        /      \ 
+ATOM C7   CTL3    -0.310 !    O6=C5      C9=O10 
+ATOM H71  HAL3     0.090 !      /          \ 
+ATOM H72  HAL3     0.090 ! H71-C7-H73  H113-C11-H111 
+ATOM H73  HAL3     0.090 !     |            | 
+GROUP                    !    H72          H112
+ATOM C2   CTL1     0.170 ! 
+ATOM H21  HAL1     0.090 ! 
+ATOM O8   OSL     -0.490 ! 
+ATOM C9   CL       0.900 ! 
+ATOM O10  OBL     -0.630 ! 
+ATOM C11  CTL3    -0.310 ! 
+ATOM H111 HAL3     0.090 ! 
+ATOM H112 HAL3     0.090 ! 
+ATOM H113 HAL3     0.090 ! 
+ 
+BOND P1   OP1    P1   OP2   P1   OP3   P1   OP4   
+BOND OP1  HP11   OP2  C3	 
+BOND C1   C2     C2   C3 
+BOND C1   O4     O4   C5    C5   C7    C5   O6 
+BOND C2   O8     O8   C9    C9   C11   C9  O10 
+BOND C1   H11    C1   H12   C2   H21   C3  H31    C3   H32 
+BOND C7   H71    C7   H72   C7   H73 
+BOND C11  H111   C11  H112  C11  H113 
+ 
+IMPR O6 C7 O4 C5  O10 C11 O8 C9 
+ 
+! edited dmpc snapshot (E.H.) (beta2* and gamma2* definition unconventional) 
+IC HP11  OP1   P1   OP2    1.4186  112.33  -78.53  103.34   1.5770 ! crystal data (alpha3) 
+IC OP1   OP2   *P1  OP3    1.5812  103.34 -115.61  107.34   1.4868 
+IC OP1   OP2   *P1  OP4    1.5812  103.34  114.59  106.97   1.4890 
+IC OP1   P1    OP2  C3     1.5812  103.34  -63.74  113.53   1.4211 ! crystal data (alpha2) 
+IC P1    OP2   C3   C2     1.5770  113.53 -118.59  110.80   1.5411 ! dmpc snapshot (alpha1) 
+IC C2    OP2   *C3  H31    1.5411  110.80 -117.79  107.25   1.1126 
+IC C2    OP2   *C3  H32    1.5411  110.80  124.94  114.26   1.1129 
+IC OP2   C3    C2   C1     1.4211  110.80   66.66  113.75   1.5413 ! dmpc snapshot (theta1) 
+IC C1    C3    *C2  O8     1.5413  113.75  120.93  106.41   1.4493 
+IC C1    C3    *C2  H21    1.5413  113.75 -118.94  106.83   1.1155 
+IC C3    C2    C1   O4     1.5411  113.75  177.67  111.80   1.4509 ! crystal table (theta3) 
+IC O4    C2    *C1  H11    1.4509  111.80 -120.29  108.58   1.1124 
+IC O4    C2    *C1  H12    1.4509  111.80  124.04  109.30   1.1138 
+IC C2    C1    O4   C5     1.5413  111.80   93.38  117.70   1.3380 ! dmpc snapshot (gamma1) 
+IC C1    O4    C5   O6     1.4509  117.70   -1.20  125.29   1.2005 ! crystal table (gamma2*) 
+IC O6    O4    *C5  C7     1.2005  125.29 -179.32  109.42   1.5078 
+IC O4    C5    C7   H71    1.3380  109.42   63.59  109.44   1.1106 
+IC H71   C5    *C7  H72    1.1106  109.44 -120.01  109.93   1.1097 
+IC H71   C5    *C7  H73    1.1106  109.44  119.76  110.38   1.1102 ! approximate geo 
+IC C3    C2    O8   C9     1.5411  106.41  137.58  118.77   1.3280 ! dmpc snapshot (beta1) 
+IC C2    O8    C9   O10    1.4493  118.77   -0.90  125.92   1.2021 ! crystal table (beta2*) 
+IC O10   O8    *C9  C11    1.2021  125.92  179.92  109.19   1.5092 
+IC O8    C9    C11  H111   1.3280  109.19   59.28  109.75   1.1100 
+IC H111  C9    *C11 H112   1.1100  109.75 -119.89  109.63   1.1101 
+IC H111  C9    *C11 H113   1.1100  109.75  120.11  110.45   1.1101 ! approximate geo 
+

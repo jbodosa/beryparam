@@ -1,0 +1,34 @@
+RESI DPPG        -1.00 ! 2,3 dipalmitoyl-D-glycero-1-Phosphatidylglycerol
+!
+!  R1 - CH2
+!       |
+!  R2 - CH
+!       |
+!       CH2 - PO4 - CH2 - CH(OH) - CH2OH
+!
+! Polar Head and glycerol backbone
+GROUP                 !
+ATOM C13  CTL2   0.05 !
+ATOM H13A HAL2   0.09 !           H13A
+ATOM H13B HAL2   0.09 !            |
+ATOM OC3  OHL   -0.65 !            |
+ATOM HO3  HOL    0.42 !     H13B--C13---OC3--HO3
+GROUP                 !            |
+ATOM C12  CTL1   0.14 !            |
+ATOM H12A HAL1   0.09 !            |
+ATOM OC2  OHL   -0.65 !     H12A--C12---OC2--HO2
+ATOM HO2  HOL    0.42 !            |
+GROUP                 !            |     alpha5
+ATOM C11  CTL2  -0.08 !            |
+ATOM H11A HAL2   0.09 !     H11A--C11---H11B
+ATOM H11B HAL2   0.09 !            |     alpha4
+ATOM P    PL     1.50 !   (-) O13  O12
+ATOM O13  O2L   -0.78 !         \ /      alpha3
+ATOM O14  O2L   -0.78 !          P (+)
+ATOM O12  OSLP  -0.57 !         / \      alpha2
+ATOM O11  OSLP  -0.57 !   (-) O14  O11
+ATOM C1   CTL2  -0.08 !            |     alpha1
+ATOM HA   HAL2   0.09 !       HA---C1---HB
+ATOM HB   HAL2   0.09 !            |     theta1
+
+! Ommited rest of the structure for clarity

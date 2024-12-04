@@ -1,0 +1,35 @@
+* Generate psf of lig-ion POT no water
+* CHARMM36m ff
+* Made by jbodosa on 05-June-2024
+
+! stream the rtf and prm files
+stream toppar.str
+
+! Read sequence for ligand
+read sequence GLP2 2
+generate GLP2
+
+! Read for ion
+read sequence CAL 1
+generate CAL noangle nodihedral
+
+! Read sequence for netralizing POT
+read sequence POT 2
+generate POT noangle nodihedral
+
+open unit 12 read card name config_ion.pdb
+read coor pdb unit 12 resi
+
+open unit 13 write form name config_ion.crd
+write coor card unit 13
+* CRD
+* 
+close unit 13
+
+open unit 13 write form name config_ion.psf
+write psf card unit 13
+* PSF
+* 
+close unit 13
+
+STOP

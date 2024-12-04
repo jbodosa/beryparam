@@ -1,0 +1,83 @@
+* Generate psf of lig-ion net-ion water
+* CHARMM36m ff
+* Made by jbodosa on 22-June-2024
+*
+
+bomlev -3
+
+!! Line below need check doc
+!!DIMENS CHSIZE 2000000
+
+! Read rtf and prm files 
+stream toppar.str
+
+
+! Raed system info
+stream step3_size.str
+
+! Read ligand sequence
+read sequence GLP2 1
+generate GLP2
+
+
+! Read ion sequence
+read sequence CAL 1
+generate CAL noangle nodihedral
+
+
+open read unit 10 card name config_recenter.pdb
+read coor pdb unit 10 resid
+
+! Define solute for restraining
+define solu sele segid CAL .or. segid GLP2  end
+cons harm absolute force 1.0 sele solu end
+
+!! Packed molecules total
+define PTOT sele .not. hydrogen end
+
+
+!! Add water from equilibrated waterbox
+!!
+open read unit 10 card name ../waterbox_eq.crd 
+read sequence coor unit 10
+generate W1 setup warn noangle nodihedral
+
+open read unit 10 card name ../waterbox_eq.crd
+read coor unit 10 card append
+
+!! If you want to check water
+!!coor stat sle segid W1 end
+
+define junk sele .byres. ( ( segid W1 .and. type OH2 ) .and. -
+                           ( PTOT .around. 2.8 ) ) end
+
+if nwater .ne. 0 then
+  ! If there is water in original config
+  join TIP3 W1 renumber
+else
+  ! If there is no water in original config
+  rename segid TIP3 sele segid W1 end
+  join TIP3 renumber
+endif
+
+!! Write output files
+
+open write unit 12 card name config_wbox.crd
+write coor unit 12 card
+* CRD 
+*
+close unit 12
+
+open write unit 12 card name config_wbox.pdb
+write coor pdb unit 12 
+* PDB 
+*
+close unit 12
+
+open write unit 12 card name config_wbox.psf
+write psf card unit 12 
+* PSF 
+*
+close unit 12
+
+STOP
