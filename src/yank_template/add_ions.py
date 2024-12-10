@@ -11,7 +11,7 @@
 
 ```
     Check the syscharge file in the structre dir. If neutral molecule then don't add charge else check if positive
-        or negative and add correct counter ion (CLA/POT) or ask for counter-ion name.
+    or negative and add correct counter ion (CLA/POT) or ask for counter-ion name.
 ```
 
 # Imports

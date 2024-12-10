@@ -1,7 +1,7 @@
 ## Steps to generate the alchem setup
 
 <ol>
-  <li>Generate the moleucle/system with counter-ions using packmol > add_ions.sh</li>
+  <li>Generate the moleucle/system with counter-ions using packmol > add_ions.py</li>
   <li>Generate the crd file for this ion box</li>
   <li>Use the crd file to generate the water and vacuum boxes using CHARMM</li>
 
