@@ -11,3 +11,4 @@ $PACKMOL <ion_box.inp >ion_box.out
 $CHARMM <ion_wat.inp >ion_wat.out
 $CHARMM <ion_vac.inp >ion_vac.out
 ```
+test
