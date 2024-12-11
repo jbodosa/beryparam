@@ -8,9 +8,7 @@ DIMENS CHSIZE 2000000
 
 bomlev -3
 
-!! Read system size
-stream sys_size.str
-!! Read charmm ff files
+! Read charmm ff files
 stream toppar.str
 
 
