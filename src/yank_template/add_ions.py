@@ -123,7 +123,7 @@ class SysGen:
                         # Write the atomic data
                         for i, atom in enumerate(pdb.topology.atoms()):
                             position = pdb.positions[i]
-                            segid = getattr(atom.residue, 'id', 'HETATOM')
+                            #segid = getattr(atom.residue, 'id', 'MGLYOL')
 
                             # Picked the format from MDAnalysis
                             # https://docs.mdanalysis.org/1.1.0/_modules/MDAnalysis/coordinates/CRD.html#CRDWriter
@@ -134,7 +134,8 @@ class SysGen:
                             #
                             # The resname and segname are wrong
                             atom.residue.name="MGLYOL"
-                            crd_file.write(f"{i + 1:10d}{atom.residue.index + 1:10d}  {atom.residue.name:<8.8s}  {atom.name:<8.8s}{position.x:>20.10f}{position.y:20.10f}{position.z:20.10f}  {segid:<8.8s}  {atom.residue.index + 1:<8d}{0:20.10f}\n")
+                            atom.residue.id="MGLYOL"
+                            crd_file.write(f"{i + 1:10d}{atom.residue.index + 1:10d}  {atom.residue.name:<8.8s}  {atom.name:<8.8s}{position.x:>20.10f}{position.y:20.10f}{position.z:20.10f}  {atom.residue.id:<8.8s}  {atom.residue.index + 1:<8d}{0:20.10f}\n")
                 crd_file.close()
                 return f"CRD file written to '{output_path}'"
         except FileNotFoundError:
