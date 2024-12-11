@@ -13,7 +13,7 @@ $CHARMM <ion_vac.inp >ion_vac.out
 ```
 test
 ## Steps
-1. convert the molecule/system pdb to CHARMM pdb, psf, crd
+1. convert the molecule/system pdb to CHARMM pdb, psf, crd ([charmm const](https://www.charmm-gui.org/charmmdoc/subst.html))
 2. calculate charge of molecule/system and add charge accordingly at a specified distance, output pdb, psf, crd
 3. Add restrain to the counter-ions and create xml file of restrained system
 
