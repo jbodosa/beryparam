@@ -2,24 +2,27 @@
 * THIS IS TO RECENTER THE SYS AND GET CHARMM COMPATIBLE PDB/PSF/CRD
 * Made by jbodosa on 2024-12-11 18:50:11.128296+00:00
 * 
-* 
-bomlev -3 
 DIMENS CHSIZE 2000000
-! Read system size 
+
+bomlev -3 
+
+!! Read system size 
 stream sys_size.str 
-! Read charmm ff files 
+!! Read charmm ff files 
 stream toppar.str 
  
  
-! Read in the mol/sys 
+!! Read in the mol/sys 
 read sequence MGLYOL 1 
 generate MGLYOL 
+
 open read unit 10 card name output.crd 
-read coor unit 10 card resid 
-close unit 10
-define solute sele segid MGLYOL end 
-cons harm absolute force 1.0 sele solute end 
-define PTOT sele .not. hydrogen 
-open write unit 10 card name recenetr.psf 
-write psf card 10  
-close unit 10
+read coor unit 10 card 
+!define solute sele segid MGLYOL end 
+!cons harm absolute force 1.0 sele solute end 
+!define PTOT sele .not. hydrogen  end
+!open write unit 10 card name recenetr.psf 
+!write psf card 10  
+!close unit 10
+
+STOP

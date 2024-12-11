@@ -5,43 +5,43 @@
 
 
 ! protein topology and parameter
-open read card unit 10 name ../toppar_c36_jul20/top_all36_prot.rtf
+open read card unit 10 name ../forcefield/toppar_c36_jul20/top_all36_prot.rtf
 read  rtf card unit 10
 
-open read card unit 20 name ../toppar_c36_jul20/par_all36m_prot.prm
+open read card unit 20 name ../forcefield/toppar_c36_jul20/par_all36m_prot.prm
 read para card unit 20 flex
 
 ! lipids
-open read card unit 10 name ../toppar_c36_jul20/top_all36_lipid.rtf
+open read card unit 10 name ../forcefield/toppar_c36_jul20/top_all36_lipid.rtf
 read  rtf card unit 10 append
 
-open read card unit 20 name ../toppar_c36_jul20/par_all36_lipid.prm
+open read card unit 20 name ../forcefield/toppar_c36_jul20/par_all36_lipid.prm
 read para card unit 20 append flex
 
 ! NA
-open read card unit 10 name ../toppar_c36_jul20/top_all36_na.rtf
+open read card unit 10 name ../forcefield/toppar_c36_jul20/top_all36_na.rtf
 read  rtf card unit 10 append
 
-open read card unit 20 name ../toppar_c36_jul20/par_all36_na.prm
+open read card unit 20 name ../forcefield/toppar_c36_jul20/par_all36_na.prm
 read para card unit 20 append flex
 
 ! Carb 
-open read card unit 10 name ../toppar_c36_jul20/top_all36_carb.rtf
+open read card unit 10 name ../forcefield/toppar_c36_jul20/top_all36_carb.rtf
 read  rtf card unit 10 append
 
-open read card unit 20 name ../toppar_c36_jul20/par_all36_carb.prm
+open read card unit 20 name ../forcefield/toppar_c36_jul20/par_all36_carb.prm
 read para card unit 20 append flex
 
 ! CGENFF
-open read card unit 10 name ../toppar_c36_jul20/top_all36_cgenff.rtf
+open read card unit 10 name ../forcefield/toppar_c36_jul20/top_all36_cgenff.rtf
 read  rtf card unit 10 append
 
-open read card unit 20 name ../toppar_c36_jul20/par_all36_cgenff.prm
+open read card unit 20 name ../forcefield/toppar_c36_jul20/par_all36_cgenff.prm
 read para card unit 20 append flex
 
 ! Read additional topology and parameter file for water and ions
-stream ../toppar_c36_jul20/toppar_water_ions_charmm.str
-! stream ../toppar_c36_jul20/toppar_water_ions_namd_noadj.str
+stream ../forcefield/toppar_c36_jul20/toppar_water_ions_charmm.str
+! stream ../forcefield/toppar_c36_jul20/toppar_water_ions_namd_noadj.str
 
 ! Extra Lipids
-stream ../toppar_c36_jul20/stream/lipid/toppar_all36_lipid_model_yalun.str
+stream ../forcefield/toppar_c36_jul20/stream/lipid/toppar_all36_lipid_model_yalun.str
