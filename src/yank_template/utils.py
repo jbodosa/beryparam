@@ -36,39 +36,28 @@ def write_charmm_inp():
         inp.write(f"! Read in the mol/sys \n")
         inp.write(f"read sequence MGLYOL 1 \n")
         inp.write(f"generate MGLYOL \n")
+        inp.write(f"open read unit 10 card name output.crd \n")
+        inp.write(f"read coor unit 10 card resid \n")
+        inp.write(f"close unit 10\n")
+        inp.write(f"define solute sele segid MGLYOL end \n")
+        inp.write(f"cons harm absolute force 1.0 sele solute end \n")
+        inp.write(f"define PTOT sele .not. hydrogen \n")
+        inp.write(f"open write unit 10 card name recenetr.psf \n")
+        inp.write(f"write psf card 10  \n")
+        inp.write(f"close unit 10\n")
         inp.close()
 
 write_charmm_inp()
 
-
-
-! Read the CAL
-read sequence CAL 1
-generate CAL
-
-
-! Read the CLA
-read sequence CLA 2
-generate CLA noang nodihed
-
-open read unit 10 card name cal_cla.pdb
-read coor pdb unit 10 resid
-
-define solute sele segid CAL .or. segid CLA end
-cons harm absolute force 1.0 sele solute end
-
-define PTOT sele .not. hydrogen end
-
-
-open write unit 10 card name cal_cla_vac.crd
-write coor unit 10 card
-
-
-open write unit 10 card name cal_cla_vac.pdb
-write coor pdb unit 10
-
-
-open write unit 10 card name cal_cla_vac.psf
-write  psf card unit 10
-
-
+##open write unit 10 card name cal_cla_vac.crd
+##write coor unit 10 card
+##
+##
+##open write unit 10 card name cal_cla_vac.pdb
+##write coor pdb unit 10
+##
+##
+##open write unit 10 card name cal_cla_vac.psf
+##write  psf card unit 10
+##
+##
