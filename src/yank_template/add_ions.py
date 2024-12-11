@@ -133,6 +133,7 @@ class SysGen:
                             # "{chainID:<8.8s}  {resSeq:<8d}{tempfactor:20.10f}\n"),
                             #
                             # The resname and segname are wrong
+                            atom.residue.name="MGLYOL"
                             crd_file.write(f"{i + 1:10d}{atom.residue.index + 1:10d}  {atom.residue.name:<8.8s}  {atom.name:<8.8s}{position.x:>20.10f}{position.y:20.10f}{position.z:20.10f}  {segid:<8.8s}  {atom.residue.index + 1:<8d}{0:20.10f}\n")
                 crd_file.close()
                 return f"CRD file written to '{output_path}'"
@@ -167,8 +168,8 @@ class SysGen:
 
 # Example usage:
 file_reader = SysGen()
-#pdb = file_reader.read_pdb(pdb_file = '../meso/meso.pdb') #, box_dim=60, box_dim_unit="Ang")
-crd = file_reader.read_crd(crd_file = 'output.crd')
-#crd_status = file_reader.write_crd('output.crd', use_CHARMM=False)
-psf = file_reader.write_psf('output.psf')
+pdb = file_reader.read_pdb(pdb_file = '../meso/meso.pdb') #, box_dim=60, box_dim_unit="Ang")
+#crd = file_reader.read_crd(crd_file = 'output.crd')
+crd_status = file_reader.write_crd('output.crd', use_CHARMM=False)
+#psf = file_reader.write_psf('output.psf')
 
