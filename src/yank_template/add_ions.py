@@ -19,13 +19,13 @@ import os
 import subprocess
 from openmm.app import *
 
-## Remote zaratan
-#PACKMOL="/home/jbodosa/scratch/data/exec/packmol/packmol"
-#CHARMM="/home/jbodosa/scratch/data/exec/gnu/charmm"
+# Remote zaratan
+PACKMOL="/home/jbodosa/scratch/data/exec/packmol/packmol"
+CHARMM="/home/jbodosa/scratch/data/exec/gnu/charmm"
 
-# Local M1
-PACKMOL="/Users/jbodosa/Documents/UMD/Rotation/Lab/Work/data/packages/packmol-20.14.4-docs1/packmol"
-CHARMM="/Users/jbodosa/Documents/UMD/Rotation/Lab/Work/data/packages/gnu/charmm"
+## Local M1
+#PACKMOL="/Users/jbodosa/Documents/UMD/Rotation/Lab/Work/data/packages/packmol-20.14.4-docs1/packmol"
+#CHARMM="/Users/jbodosa/Documents/UMD/Rotation/Lab/Work/data/packages/gnu/charmm"
 
 class SysGen:
     def __init__(self):
@@ -152,7 +152,7 @@ class SysGen:
                 try:
                     # Call CHARMM to write the psf file
                     #command = "echo '"+CHARMM+" < ion_wat.inp > ion_wat.out'"
-                    command = CHARMM+" < ion_wat.inp > ion_wat.out"
+                    command = CHARMM+" < ion_box.inp > ion_box.out"
                     result = subprocess.run(command, shell=True, executable="/bin/bash",  capture_output=True, text=True, check=True)
                     print(result.stdout)
                 except subprocess.CalledProcessError as e:
