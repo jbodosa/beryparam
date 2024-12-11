@@ -133,7 +133,7 @@ class sysGen:
                     # Call CHARMM to write the psf file
                     command = CHARMM+" < recenter.inp > recenter.out"
                     result = subprocess.run(command, shell=True, executable="/bin/bash",  capture_output=True, text=True, check=True)
-                    print(result.stdout)
+                    return(result.stdout)
                 except subprocess.CalledProcessError as e:
                     print(f"Command failed with return code {e.returncode}")
                     print(f"Error output: {e.stderr}")
@@ -147,6 +147,7 @@ class sysGen:
 file_reader = sysGen()
 pdb = file_reader.read_pdb(pdb_file = '../meso/meso.pdb') #, box_dim=60, box_dim_unit="Ang")
 #crd = file_reader.read_crd(crd_file = 'output.crd')
-crd_status = file_reader.write_crd('output.crd', use_CHARMM=False)
-psf = file_reader.write_psf('output.psf')
+crd_status = file_reader.write_crd('input.crd', use_CHARMM=False)
+psf = file_reader.write_psf('input.psf')
+print(psf)
 
