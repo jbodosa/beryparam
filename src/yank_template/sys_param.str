@@ -1,1 +1,2 @@
  SET NCHARGE = 0
+ SET XMAX = ?XMAX

@@ -1,8 +1,9 @@
 PSF EXT CMAP CHEQ XPLOR
 
-         2 !NTITLE
+         3 !NTITLE
 * SET NCHARGE = 0                                                               
-*  DATE:    12/11/24     15:19:52      CREATED BY USER: jbodosa                 
+* SET XMAX = ?XMAX                                                              
+*  DATE:    12/11/24     15:37:25      CREATED BY USER: jbodosa                 
 
         14 !NATOM
          1 MGLYOL   1        MGLYOL   C1       CC322    0.500000E-01   12.0110           0   0.00000     -0.301140E-02
