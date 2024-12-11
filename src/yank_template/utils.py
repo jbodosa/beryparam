@@ -10,8 +10,7 @@ from datetime import datetime, timezone
 ### Writing a CHARMM input file
 
 ### Write the mol recenter script
-
-def write_charmm_inp():
+def write_recenter_inp():
     output_file = "recenter.inp"
 
     with open(output_file, 'w') as inp:
@@ -45,30 +44,35 @@ def write_charmm_inp():
         inp.write(f"define SYS sele solute .and. ( .not. hydrogen ) end\n")
         inp.write(f"cons harm absolute force 1.0 sele SYS end \n")
         inp.write(f"\n")
+        inp.write(f"COOR STAT\n")
+        inp.write(f"COOR TRANSLATE XDIR -?XAVE YDIR -?YAVE ZDIR -?ZAVE\n")
+        inp.write(f"\n")
         inp.write(f"open write unit 91 card name recenter.psf \n")
         inp.write(f"write psf card unit 91  \n")
         inp.write(f"close unit 91\n")
         inp.write(f"\n")
+        inp.write(f"open write unit 92 card name recenter.crd \n")
+        inp.write(f"write coor card unit 92  \n")
+        inp.write(f"close unit 92\n")
+        inp.write(f"\n")
+        inp.write(f"open write unit 93 card name recenter_off.pdb \n")
+        inp.write(f"write coor pdb card unit 93 official \n")
+        inp.write(f"close unit 93\n")
+        inp.write(f"\n")
+        inp.write(f"open write unit 93 card name recenter.pdb \n")
+        inp.write(f"write coor pdb card unit 93  \n")
+        inp.write(f"close unit 93\n")
+        inp.write(f"\n")
         inp.write(f"calc cgtot = int ( ?cgtot )\n")
-        inp.write(f"open write unit 92 card name sys_param.str\n")
-        inp.write(f"write title unit 92\n")
+        inp.write(f"open write unit 94 card name sys_param.str\n")
+        inp.write(f"write title unit 94\n")
         inp.write(f"* set ncharge = @cgtot ! not ?cgtot\n")
         inp.write(f"*\n")
         inp.write(f"\n")
         inp.write(f"STOP\n")
         inp.close()
+    return(f"Recentered and wrote psf/pdb/crd")
 
-write_charmm_inp()
+## Usage:
+#write_recenter_inp()
 
-##open write unit 10 card name cal_cla_vac.crd
-##write coor unit 10 card
-##
-##
-##open write unit 10 card name cal_cla_vac.pdb
-##write coor pdb unit 10
-##
-##
-##open write unit 10 card name cal_cla_vac.psf
-##write  psf card unit 10
-##
-##

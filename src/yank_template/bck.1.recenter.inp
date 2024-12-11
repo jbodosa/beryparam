@@ -22,28 +22,13 @@ define solute sele segid MGLYOL end
 define SYS sele solute .and. ( .not. hydrogen ) end
 cons harm absolute force 1.0 sele SYS end 
 
-COOR STAT
-COOR TRANSLATE XDIR -?XAVE YDIR -?YAVE ZDIR -?ZAVE
-
 open write unit 91 card name recenter.psf 
 write psf card unit 91  
 close unit 91
 
-open write unit 92 card name recenter.crd 
-write coor card unit 92  
-close unit 92
-
-open write unit 93 card name recenter_off.pdb 
-write coor pdb card unit 93 official 
-close unit 93
-
-open write unit 93 card name recenter.pdb 
-write coor pdb card unit 93  
-close unit 93
-
 calc cgtot = int ( ?cgtot )
-open write unit 94 card name sys_param.str
-write title unit 94
+open write unit 92 card name sys_param.str
+write title unit 92
 * set ncharge = @cgtot ! not ?cgtot
 *
 

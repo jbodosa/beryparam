@@ -5,6 +5,7 @@
 import os
 import subprocess
 from openmm.app import *
+from utils import write_recenter_inp
 
 # Remote zaratan
 PACKMOL="/home/jbodosa/scratch/data/exec/packmol/packmol"
@@ -130,7 +131,10 @@ class sysGen:
             crd = self.crd
             if isinstance(crd, charmmcrdfiles.CharmmCrdFile):
                 try:
-                    # Call CHARMM to write the psf file
+                    # Call write recenter.inp
+                    recenter_out = write_recenter_inp()
+                    print(recenter_out)
+                    # Call CHARMM to recenter the sys and write psf 
                     command = CHARMM+" < recenter.inp > recenter.out"
                     result = subprocess.run(command, shell=True, executable="/bin/bash",  capture_output=True, text=True, check=True)
                     return(result.stdout)
@@ -146,8 +150,9 @@ class sysGen:
 # Example usage:
 file_reader = sysGen()
 pdb = file_reader.read_pdb(pdb_file = '../meso/meso.pdb') #, box_dim=60, box_dim_unit="Ang")
-#crd = file_reader.read_crd(crd_file = 'output.crd')
 crd_status = file_reader.write_crd('input.crd', use_CHARMM=False)
+crd = file_reader.read_crd(crd_file = 'input.crd')
 psf = file_reader.write_psf('input.psf')
 print(psf)
+print("Done")
 
