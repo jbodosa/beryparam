@@ -168,7 +168,7 @@ class sysGen:
         # Make a copy of ion.pdb and rename it correctly
         replace_resname(self.counter_ion, "ion/ion.pdb", f"{self.counter_ion}.pdb")
         # Write the packmol input file
-        pack_status = write_pack_inp(self.ncharge, self.counter_ion, self.ion_dist ) # How many counter ions and the dist
+        pack_status = write_pack_inp(abs(int(self.ncharge)), self.counter_ion, self.ion_dist ) # How many counter ions and the dist
 
         command = PACKMOL+" < box_ion.inp > box_ion.out"
         result = subprocess.run(command, shell=True, executable="/bin/bash",  capture_output=True, text=True, check=True)
