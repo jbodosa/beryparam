@@ -163,7 +163,38 @@ class sysGen:
     ###########################
     ## Probably change this to CHARMM later
 
-    def
+    def place_ions(self):
+
+        # Write the packmol input file
+
+        pack_status = write_pack_inp(self.ncharge, self.counter_ion, self.ion_dist, "ion_box_test.inp" ) # How many counter ions and the dist
+
+        #command = PACKMOL+" < add_ions.inp > add_ions.out"
+        #result = subprocess.run(command, shell=True, executable="/bin/bash",  capture_output=True, text=True, check=True)
+        print(pack_status)
+        return(pack_status)
+
+
+    def add_ions(self, ion_dist): # dist: distance to place away from sys/mol
+
+        self.ion_dist = ion_dist
+        ncharge = int(self.ncharge)
+        # Test line below
+        ncharge = -1 # Test different charges
+
+        if ncharge == 0:
+            print("Neutral system")
+        elif ncharge < 0 : # Negative charge
+            # Add positive counter-ions POT/SOD
+            self.counter_ion = "POT"
+        elif ncharge > 0: # Positive charge
+            # Add negative counter-ions POT/SOD
+            self.counter_ion = "CLA"
+
+        ion_status = self.place_ions()
+
+        print(ion_status)
+        return("Added ions")
 
 
 # Example usage:
@@ -176,5 +207,6 @@ file_reader = sysGen()
 
 param_dict = file_reader.set_param("sys_param.str")
 print(file_reader.__dict__)
+file_reader.add_ions(ion_dist =2)
 print("Done")
 

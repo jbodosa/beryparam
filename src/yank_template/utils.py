@@ -25,6 +25,43 @@ def parse_param(sys_param):
     #    print(param_dict)
     return(param_dict)
 
+##########################
+# Write the packmol input #
+##########################
+
+def write_pack_inp(ncharge, counter_ion, ion_dist , output_file): # How many counter ions and the dist
+    with open(output_file, 'w') as f:
+        f.write(f"# Packmol input template \n")
+        f.write(f"\n")
+        f.write(f"Add {counter_ion} to the system\n")
+        f.write(f"\n")
+        f.write(f"tolerance 2.0\n")
+        f.write(f"\n")
+        f.write(f"filetype pdb\n")
+        f.write(f"resnumbers 0\n")
+        f.write(f"\n")
+        f.write(f"structure {counter_ion.upper()}.pdb\n")
+        f.write(f"  number {ncharge}\n")
+        f.write(f"  outside sphere\n") # OVER_HERE
+    return("Wrote packmol input.")
+
+
+
+#structure cal.pdb
+#  number 1
+#  inside box -0.00 -0.00 -0.00 0.0 0.0 0.0
+#end structure
+#
+## Place POT ions in the same box 20A
+#structure cla.pdb
+#  number 2
+#  outside sphere 0. 0. 0. 20.
+#  inside box -25.0 -25.0 -25.0 25.0 25.0 25.0
+#end structure
+#
+## Write the box pdb
+#output cal_cla.pdb
+
 #####################
 # CHARMM inp files #
 #####################
