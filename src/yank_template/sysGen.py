@@ -159,6 +159,25 @@ class sysGen:
         return(param_dict)
 
     ###########################
+    # For neutral No counter-ions using packmol #
+    ###########################
+    ## Probably change this to CHARMM later
+
+    def no_ions(self):
+        pass
+
+        ## Make a copy of ion.pdb and rename it correctly
+        #replace_resname(self.counter_ion, "ion/ion.pdb", f"{self.counter_ion}.pdb")
+        ## Write the packmol input file
+        #pack_status = write_pack_inp(abs(int(self.ncharge)), self.counter_ion, self.ion_dist ) # How many counter ions and the dist
+
+        #command = PACKMOL+" < box_ion.inp > box_ion.out"
+        #result = subprocess.run(command, shell=True, executable="/bin/bash",  capture_output=True, text=True, check=True)
+        #print(result.stdout)
+        #return(f"Added {abs(int(self.ncharge))} number of {self.counter_ion} to the system.")
+
+
+    ###########################
     # Add counter-ions using packmol #
     ###########################
     ## Probably change this to CHARMM later
@@ -184,19 +203,23 @@ class sysGen:
         # TEST
         # Test line below
         #self.ncharge = -1 # Test different charges
+        self.ncharge = int(self.ncharge) # Need it to be int here 
 
         if self.ncharge == 0:
             print("Neutral system")
+            # TODO
+            # Handle neutral system no counter-ion
+            ion_status = self.no_ions()
         elif self.ncharge < 0 : # Negative charge
             # Add positive counter-ions POT/SOD
             self.counter_ion = "POT"
+            ion_status = self.place_ions()
         elif self.ncharge > 0: # Positive charge
             # Add negative counter-ions POT/SOD
             self.counter_ion = "CLA"
+            ion_status = self.place_ions()
 
-        ion_status = self.place_ions()
 
-        print(ion_status)
         # Should return the box_ion.pdb
         return("Added ions")
 
