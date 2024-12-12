@@ -5,7 +5,7 @@
 import os
 import subprocess
 from openmm.app import *
-from utils import write_recenter_inp
+from utils import *
 
 # Remote zaratan
 PACKMOL="/home/jbodosa/scratch/data/exec/packmol/packmol"
@@ -134,7 +134,7 @@ class sysGen:
                     # Call write recenter.inp
                     recenter_out = write_recenter_inp()
                     print(recenter_out)
-                    # Call CHARMM to recenter the sys and write psf 
+                    # Call CHARMM to recenter the sys and write psf
                     command = CHARMM+" < recenter.inp > recenter.out"
                     result = subprocess.run(command, shell=True, executable="/bin/bash",  capture_output=True, text=True, check=True)
                     return(result.stdout)
@@ -147,12 +147,34 @@ class sysGen:
             return("Got error : {str(e)}".format(e=e))
 
 
+    ###########################
+    # Add params to system #
+    ###########################
+
+    def set_param(self, sys_param):
+        param_dict = parse_param(sys_param)
+        for key, value in param_dict.items():
+#            print(key, value)
+            setattr(self, key, value)
+        return(param_dict)
+
+    ###########################
+    # Add counter-ions using packmol #
+    ###########################
+    ## Probably change this to CHARMM later
+
+    def
+
+
 # Example usage:
 file_reader = sysGen()
-pdb = file_reader.read_pdb(pdb_file = '../meso/meso.pdb') #, box_dim=60, box_dim_unit="Ang")
-crd_status = file_reader.write_crd('input.crd', use_CHARMM=False)
-crd = file_reader.read_crd(crd_file = 'input.crd')
-psf = file_reader.write_psf('input.psf')
-print(psf)
+#pdb = file_reader.read_pdb(pdb_file = '../meso/meso.pdb') #, box_dim=60, box_dim_unit="Ang")
+#crd_status = file_reader.write_crd('input.crd', use_CHARMM=False)
+#crd = file_reader.read_crd(crd_file = 'input.crd')
+#psf = file_reader.write_psf('input.psf')
+#print(psf)
+
+param_dict = file_reader.set_param("sys_param.str")
+print(file_reader.__dict__)
 print("Done")
 
