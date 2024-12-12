@@ -165,29 +165,32 @@ class sysGen:
 
     def place_ions(self):
 
+        # Make a copy of ion.pdb and rename it correctly
+        replace_resname(self.counter_ion, "ion/ion.pdb", f"{self.counter_ion}.pdb")
         # Write the packmol input file
+        pack_status = write_pack_inp(self.ncharge, self.counter_ion, self.ion_dist ) # How many counter ions and the dist
 
-        pack_status = write_pack_inp(self.ncharge, self.counter_ion, self.ion_dist, "ion_box_test.inp" ) # How many counter ions and the dist
-
-        #command = PACKMOL+" < add_ions.inp > add_ions.out"
-        #result = subprocess.run(command, shell=True, executable="/bin/bash",  capture_output=True, text=True, check=True)
-        print(pack_status)
-        return(pack_status)
+        command = PACKMOL+" < box_ion.inp > box_ion.out"
+        result = subprocess.run(command, shell=True, executable="/bin/bash",  capture_output=True, text=True, check=True)
+        print(result.stdout)
+        return(f"Added {self.ncharge} number of {self.counter_ion} to the system.")
 
 
     def add_ions(self, ion_dist): # dist: distance to place away from sys/mol
 
+        # OVER_HERE
         self.ion_dist = ion_dist
         ncharge = int(self.ncharge)
+        # TEST
         # Test line below
-        ncharge = -1 # Test different charges
+        self.ncharge = -1 # Test different charges
 
-        if ncharge == 0:
+        if self.ncharge == 0:
             print("Neutral system")
-        elif ncharge < 0 : # Negative charge
+        elif self.ncharge < 0 : # Negative charge
             # Add positive counter-ions POT/SOD
             self.counter_ion = "POT"
-        elif ncharge > 0: # Positive charge
+        elif self.ncharge > 0: # Positive charge
             # Add negative counter-ions POT/SOD
             self.counter_ion = "CLA"
 

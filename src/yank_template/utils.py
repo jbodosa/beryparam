@@ -25,42 +25,58 @@ def parse_param(sys_param):
     #    print(param_dict)
     return(param_dict)
 
+#############################
+# Manipulate template files #
+#############################
+def replace_resname(resname, template_file, output_file):
+    """
+    Copy template file to new and replace the resname in file with desired resname.
+    Made this mostly to add correct ions to system.
+    """
+    # Call sed to replace the XXX with 3-letter resname
+    # TODO
+    # expand the replacemenet from 3-letter XXX to any length of XXX's
+    # Also give better names
+    template_text = open(template_file, 'r').read()
+    replaced_text = template_text.replace('XXX', resname)
+    with open(output_file, 'w') as f:
+        f.write(replaced_text)
+    f.close()
+    return(f"Replaced with {resname}.")
+
 ##########################
 # Write the packmol input #
 ##########################
 
-def write_pack_inp(ncharge, counter_ion, ion_dist , output_file): # How many counter ions and the dist
+def write_pack_inp(ncharge, counter_ion, ion_dist ): # How many counter ions and the dist
+    output_file="box_ion.inp"
     with open(output_file, 'w') as f:
-        f.write(f"# Packmol input template \n")
+        f.write(f"## Packmol input template \n")
         f.write(f"\n")
-        f.write(f"Add {counter_ion} to the system\n")
+        f.write(f"## Add {counter_ion} to the system\n")
         f.write(f"\n")
         f.write(f"tolerance 2.0\n")
         f.write(f"\n")
         f.write(f"filetype pdb\n")
         f.write(f"resnumbers 0\n")
         f.write(f"\n")
+        f.write(f"##Place molecule/system after recenter\n")
+        f.write(f"structure recenter.pdb\n")
+        f.write(f"  number 1\n")
+        f.write(f"  inside box -10.00 -10.00 -10.00 10.00 10.00 10.00\n")
+        f.write(f"end structure\n")
+        f.write(f"\n")
+        f.write(f"##Place counter-ions\n")
         f.write(f"structure {counter_ion.upper()}.pdb\n")
         f.write(f"  number {ncharge}\n")
-        f.write(f"  outside sphere\n") # OVER_HERE
-    return("Wrote packmol input.")
+        f.write(f"  outside sphere 0.0 0.0 0.0 20.0 \n") # OVER_HERE
+        f.write(f"  inside box -25.0 -25.0 -25.0 25.0 25.0 25.0\n")
+        f.write(f"end structure\n")
+        f.write(f"\n")
+        f.write(f"## Write the output box\n")
+        f.write(f"output box_ion.pdb\n")
+    return("Wrote packmol input to add counter-ion.")
 
-
-
-#structure cal.pdb
-#  number 1
-#  inside box -0.00 -0.00 -0.00 0.0 0.0 0.0
-#end structure
-#
-## Place POT ions in the same box 20A
-#structure cla.pdb
-#  number 2
-#  outside sphere 0. 0. 0. 20.
-#  inside box -25.0 -25.0 -25.0 25.0 25.0 25.0
-#end structure
-#
-## Write the box pdb
-#output cal_cla.pdb
 
 #####################
 # CHARMM inp files #
