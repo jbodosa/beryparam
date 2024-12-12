@@ -183,7 +183,7 @@ class sysGen:
         ncharge = int(self.ncharge)
         # TEST
         # Test line below
-        self.ncharge = -1 # Test different charges
+        #self.ncharge = -1 # Test different charges
 
         if self.ncharge == 0:
             print("Neutral system")
@@ -197,19 +197,24 @@ class sysGen:
         ion_status = self.place_ions()
 
         print(ion_status)
+        # Should return the box_ion.pdb
         return("Added ions")
 
 
 # Example usage:
-file_reader = sysGen()
-#pdb = file_reader.read_pdb(pdb_file = '../meso/meso.pdb') #, box_dim=60, box_dim_unit="Ang")
-#crd_status = file_reader.write_crd('input.crd', use_CHARMM=False)
-#crd = file_reader.read_crd(crd_file = 'input.crd')
-#psf = file_reader.write_psf('input.psf')
+system = sysGen()
+#pdb = system.read_pdb(pdb_file = '../meso/meso.pdb') #, box_dim=60, box_dim_unit="Ang")
+#crd_status = system.write_crd('input.crd', use_CHARMM=False)
+#crd = system.read_crd(crd_file = 'input.crd')
+#psf = system.write_psf('input.psf')
 #print(psf)
 
-param_dict = file_reader.set_param("sys_param.str")
-print(file_reader.__dict__)
-file_reader.add_ions(ion_dist =2)
+param_dict = system.set_param("sys_param.str")
+print(system.__dict__)
+system.add_ions(ion_dist =2)
+box_ion_pdb = system.read_pdb(pdb_file = 'box_ion.pdb') #, box_dim=60, box_dim_unit="Ang")
+crd_status = system.write_crd('box_ion.crd', use_CHARMM=False)
+crd = system.read_crd(crd_file = 'box_ion.crd')
+psf = system.write_psf('box_ion.psf')
 print("Done")
 
