@@ -173,7 +173,7 @@ class sysGen:
         command = PACKMOL+" < box_ion.inp > box_ion.out"
         result = subprocess.run(command, shell=True, executable="/bin/bash",  capture_output=True, text=True, check=True)
         print(result.stdout)
-        return(f"Added {self.ncharge} number of {self.counter_ion} to the system.")
+        return(f"Added {abs(int(self.ncharge))} number of {self.counter_ion} to the system.")
 
 
     def add_ions(self, ion_dist): # dist: distance to place away from sys/mol

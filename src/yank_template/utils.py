@@ -36,7 +36,6 @@ def replace_resname(resname, template_file, output_file):
     # Call sed to replace the XXX with 3-letter resname
     # TODO
     # expand the replacemenet from 3-letter XXX to any length of XXX's
-    # Also give better names
     template_text = open(template_file, 'r').read()
     replaced_text = template_text.replace('XXX', resname)
     with open(output_file, 'w') as f:
