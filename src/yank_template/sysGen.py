@@ -194,6 +194,12 @@ class sysGen:
         command = PACKMOL+" < box_ion.inp > box_ion.out"
         result = subprocess.run(command, shell=True, executable="/bin/bash",  capture_output=True, text=True, check=True)
         print(result.stdout)
+        # FIX
+        # Need to recenter first
+        self.read_pdb(pdb_file = 'box_ion.pdb') #, box_dim=60, box_dim_unit="Ang")
+        self.write_crd('box_ion.crd', use_CHARMM=False)
+        self.read_crd(crd_file = 'box_ion.crd')
+        self.write_psf('box_ion.psf')
         return(f"Added {abs(int(self.ncharge))} number of {self.counter_ion} to the system.")
 
 
@@ -204,7 +210,7 @@ class sysGen:
         #ncharge = int(self.ncharge)
         # TEST
         # Test line below
-        #self.ncharge = -1 # Test different charges
+        self.ncharge = 1 # Test different charges
         self.ncharge = int(self.ncharge) # Need it to be int here
 
         if self.ncharge == 0:
@@ -215,10 +221,12 @@ class sysGen:
             shutil.copy('recenter.crd', 'box_ion.crd')
             shutil.copy('recenter.psf', 'box_ion.psf')
         elif self.ncharge < 0 : # Negative charge
+            print(f"System has {self.ncharge} charge")
             # Add positive counter-ions POT/SOD
             self.counter_ion = "POT"
             ion_status = self.place_ions()
         elif self.ncharge > 0: # Positive charge
+            print(f"System has {self.ncharge} charge")
             # Add negative counter-ions POT/SOD
             self.counter_ion = "CLA"
             ion_status = self.place_ions()
@@ -229,19 +237,24 @@ class sysGen:
 
 
 # Example usage:
+
+
+# Clean up first
+file_path = ['recenter.pdb', 'recenter.psf', 'recenter.crd', 'recenter_off.pdb', 'box_ion.pdb', 'box_ion.psf', 'box_crd', 'POT.pdb', 'CLA.pdb']
+
+for f in file_path:
+    if os.path.exists(f):
+        os.remove(f)
+        print(f"File '{f}' deleted successfully.")
+
 system = sysGen()
-#pdb = system.read_pdb(pdb_file = '../meso/meso.pdb') #, box_dim=60, box_dim_unit="Ang")
-#crd_status = system.write_crd('input.crd', use_CHARMM=False)
-#crd = system.read_crd(crd_file = 'input.crd')
-#psf = system.write_psf('input.psf')
-#print(psf)
+pdb = system.read_pdb(pdb_file = '../meso/meso.pdb') #, box_dim=60, box_dim_unit="Ang")
+crd_status = system.write_crd('input.crd', use_CHARMM=False)
+crd = system.read_crd(crd_file = 'input.crd')
+psf = system.write_psf('input.psf')
 
 param_dict = system.set_param("sys_param.str")
 print(system.__dict__)
 system.add_ions(ion_dist =2)
-box_ion_pdb = system.read_pdb(pdb_file = 'box_ion.pdb') #, box_dim=60, box_dim_unit="Ang")
-crd_status = system.write_crd('box_ion.crd', use_CHARMM=False)
-crd = system.read_crd(crd_file = 'box_ion.crd')
-psf = system.write_psf('box_ion.psf')
 print("Done")
 
