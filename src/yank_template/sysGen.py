@@ -4,6 +4,7 @@
 # Imports
 import os
 import subprocess
+import shutil
 from openmm.app import *
 from utils import *
 
@@ -162,6 +163,7 @@ class sysGen:
     # For neutral No counter-ions using packmol #
     ###########################
     ## Probably change this to CHARMM later
+    # CLEAN
 
     def no_ions(self):
         pass
@@ -199,17 +201,19 @@ class sysGen:
 
         # OVER_HERE
         self.ion_dist = ion_dist
-        ncharge = int(self.ncharge)
+        #ncharge = int(self.ncharge)
         # TEST
         # Test line below
         #self.ncharge = -1 # Test different charges
-        self.ncharge = int(self.ncharge) # Need it to be int here 
+        self.ncharge = int(self.ncharge) # Need it to be int here
 
         if self.ncharge == 0:
             print("Neutral system")
             # TODO
             # Handle neutral system no counter-ion
-            ion_status = self.no_ions()
+            shutil.copy('recenter.pdb', 'box_ion.pdb')
+            shutil.copy('recenter.crd', 'box_ion.crd')
+            shutil.copy('recenter.psf', 'box_ion.psf')
         elif self.ncharge < 0 : # Negative charge
             # Add positive counter-ions POT/SOD
             self.counter_ion = "POT"
