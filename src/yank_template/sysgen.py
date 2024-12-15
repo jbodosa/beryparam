@@ -47,6 +47,11 @@ class sysgen:
         """
         logger.info("sysgen started ...")
         self.counter_ion = "None"
+        self.ion_dist = "None"
+        self.ncharge = "0"
+        self.pdb = "None"
+        self.psf = "None"
+        self.crd = "None"
 
     ###############
     ###############
