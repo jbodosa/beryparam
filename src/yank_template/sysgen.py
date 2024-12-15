@@ -157,7 +157,7 @@ class sysgen:
             if isinstance(crd, charmmcrdfiles.CharmmCrdFile):
                 try:
                     # Call write recenter.inp
-                    recenter_out = write_recenter_inp()
+                    recenter_out = write_recenter_inp(mol_resname="MGLYOL", ion_resname=self.counter_ion, ncharge=self.ncharge)
                     #print(recenter_out)
                     logger.debug(recenter_out)
                     # Call CHARMM to recenter the sys and write psf
@@ -224,6 +224,13 @@ class sysgen:
         logger.debug(result.stdout)
         # FIX
         # Need to recenter first
+        recenter_out = write_recenter_inp()
+        #print(recenter_out)
+        logger.debug(recenter_out)
+        # Call CHARMM to recenter the sys and write psf
+        command = CHARMM+" < recenter.inp > recenter.out"
+        result = subprocess.run(command, shell=True, executable="/bin/bash",  capture_output=True, text=True, check=True)
+        return(result.stdout)
         self.read_pdb(pdb_file = 'box_ion.pdb') #, box_dim=60, box_dim_unit="Ang")
         self.write_crd('box_ion.crd', use_CHARMM=False)
         self.read_crd(crd_file = 'box_ion.crd')
@@ -238,7 +245,7 @@ class sysgen:
         #ncharge = int(self.ncharge)
         # TEST
         # Test line below
-        self.ncharge = 1 # Test different charges
+        self.ncharge = 0 #1 # Test different charges
         self.ncharge = int(self.ncharge) # Need it to be int here
 
         if self.ncharge == 0:

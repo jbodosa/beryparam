@@ -83,7 +83,7 @@ def write_pack_inp(ncharge, counter_ion, ion_dist ): # How many counter ions and
 
 ### Writing a CHARMM input file
 ### Write the mol recenter script
-def write_recenter_inp():
+def write_recenter_inp(mol_resname, ion_resname, ncharge):
     output_file = "recenter.inp"
 
     with open(output_file, 'w') as inp:
@@ -105,10 +105,21 @@ def write_recenter_inp():
         inp.write(f"! Read charmm ff files \n")
         inp.write(f"stream toppar.str \n")
         inp.write(f"\n")
+
+        ## Add sequence of molecule/system
         inp.write(f"! Read in the mol/sys \n")
-        inp.write(f"read sequence MGLYOL 1 \n")
-        inp.write(f"generate MGLYOL \n")
+        inp.write(f"read sequence {mol_resname} 1 \n")
+        inp.write(f"generate {mol_resname} \n")
         inp.write(f"\n")
+
+        if ion_resname != "" and int(ncharge) != 0:
+            ## If there are ions add their sequnece
+            inp.write(f"! Read in the ions \n")
+            inp.write(f"read sequence {ion_resname} {ncharge} \n")
+            inp.write(f"generate {ion_resname} \n")
+            inp.write(f"\n")
+
+        ## Add coordinates of molecule/system
         inp.write(f"open read unit 90 card name output.crd \n")
         inp.write(f"read coor unit 90 card resid \n")
         inp.write(f"close unit 90\n")
