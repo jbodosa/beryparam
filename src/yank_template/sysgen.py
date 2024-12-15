@@ -21,9 +21,23 @@ CHARMM="/home/jbodosa/scratch/data/exec/gnu/charmm"
 ####################
 # Logger #
 ####################
+
+# create logger
 logger = logging.getLogger(__name__)
-logging.basicConfig(filename='sysgen.log', level=logging.DEBUG, format='%(asctime)s %(message)s', datefmt='%m-%d-%Y %H:%M:%S >')
-logger.debug('sysgen started...')
+logger.setLevel(logging.DEBUG)
+
+# create console handler and set level to debug
+ch = logging.FileHandler('setup.log')
+ch.setLevel(logging.DEBUG)
+
+# create formatter
+formatter = logging.Formatter(fmt='%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt='%m-%d-%Y %H:%M:%S >')
+
+# add formatter to ch
+ch.setFormatter(formatter)
+
+# add ch to logger
+logger.addHandler(ch)
 
 
 class sysgen:
@@ -31,7 +45,7 @@ class sysgen:
         """
             Read charge input file and output the charge.
         """
-        pass
+        logger.info("sysgen started ...")
 
     ###############
     ###############
@@ -144,14 +158,17 @@ class sysgen:
                 try:
                     # Call write recenter.inp
                     recenter_out = write_recenter_inp()
-                    print(recenter_out)
+                    #print(recenter_out)
+                    logger.debug(recenter_out)
                     # Call CHARMM to recenter the sys and write psf
                     command = CHARMM+" < recenter.inp > recenter.out"
                     result = subprocess.run(command, shell=True, executable="/bin/bash",  capture_output=True, text=True, check=True)
                     return(result.stdout)
                 except subprocess.CalledProcessError as e:
-                    print(f"Command failed with return code {e.returncode}")
-                    print(f"Error output: {e.stderr}")
+                    #print(f"Command failed with return code {e.returncode}")
+                    logger.debug(f"Command failed with return code {e.returncode}")
+                    #print(f"Error output: {e.stderr}")
+                    logger.debug(f"Error output: {e.stderr}")
         except FileNotFoundError:
             return("{file} does not exist.".format(file=crd_file))
         except Exception as e:
@@ -203,7 +220,8 @@ class sysgen:
 
         command = PACKMOL+" < box_ion.inp > box_ion.out"
         result = subprocess.run(command, shell=True, executable="/bin/bash",  capture_output=True, text=True, check=True)
-        print(result.stdout)
+        #print(result.stdout)
+        logger.debug(result.stdout)
         # FIX
         # Need to recenter first
         self.read_pdb(pdb_file = 'box_ion.pdb') #, box_dim=60, box_dim_unit="Ang")
@@ -224,19 +242,22 @@ class sysgen:
         self.ncharge = int(self.ncharge) # Need it to be int here
 
         if self.ncharge == 0:
-            print("Neutral system")
+            #print("Neutral system")
+            logger.info("Neutral system")
             # TODO
             # Handle neutral system no counter-ion
             shutil.copy('recenter.pdb', 'box_ion.pdb')
             shutil.copy('recenter.crd', 'box_ion.crd')
             shutil.copy('recenter.psf', 'box_ion.psf')
         elif self.ncharge < 0 : # Negative charge
-            print(f"System has {self.ncharge} charge")
+            #print(f"System has {self.ncharge} charge")
+            logger.info(f"System has {self.ncharge} charge")
             # Add positive counter-ions POT/SOD
             self.counter_ion = "POT"
             ion_status = self.place_ions()
         elif self.ncharge > 0: # Positive charge
-            print(f"System has {self.ncharge} charge")
+            #print(f"System has {self.ncharge} charge")
+            logger.info(f"System has {self.ncharge} charge")
             # Add negative counter-ions POT/SOD
             self.counter_ion = "CLA"
             ion_status = self.place_ions()
@@ -255,7 +276,8 @@ file_path = ['recenter.pdb', 'recenter.psf', 'recenter.crd', 'recenter_off.pdb',
 for f in file_path:
     if os.path.exists(f):
         os.remove(f)
-        print(f"File '{f}' deleted successfully.")
+        #print(f"File '{f}' deleted successfully.")
+        logger.info(f"File '{f}' deleted successfully.")
 
 system = sysgen()
 pdb = system.read_pdb(pdb_file = '../meso/meso.pdb') #, box_dim=60, box_dim_unit="Ang")
@@ -264,7 +286,8 @@ crd = system.read_crd(crd_file = 'input.crd')
 psf = system.write_psf('input.psf')
 
 param_dict = system.set_param("sys_param.str")
-print(system.__dict__)
+#print(system.__dict__)
 system.add_ions(ion_dist =2)
-print("Done")
+#print("Done")
+logger.info("Done")
 
