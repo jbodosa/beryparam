@@ -14,6 +14,10 @@ stream toppar.str
 read sequence MGLYOL 1 
 generate MGLYOL 
 
+! Read in the ions 
+read sequence CLA 1 
+generate CLA 
+
 open read unit 90 card name output.crd 
 read coor unit 90 card resid 
 close unit 90
