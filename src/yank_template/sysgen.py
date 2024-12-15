@@ -46,6 +46,7 @@ class sysgen:
             Read charge input file and output the charge.
         """
         logger.info("sysgen started ...")
+        self.counter_ion = "None"
 
     ###############
     ###############

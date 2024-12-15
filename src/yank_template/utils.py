@@ -112,7 +112,7 @@ def write_recenter_inp(mol_resname, ion_resname, ncharge):
         inp.write(f"generate {mol_resname} \n")
         inp.write(f"\n")
 
-        if ion_resname != "" and int(ncharge) != 0:
+        if ion_resname != "None" and int(ncharge) != 0:
             ## If there are ions add their sequnece
             inp.write(f"! Read in the ions \n")
             inp.write(f"read sequence {ion_resname} {ncharge} \n")
