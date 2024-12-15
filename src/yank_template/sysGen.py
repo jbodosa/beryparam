@@ -5,6 +5,8 @@
 import os
 import subprocess
 import shutil
+import logging
+
 from openmm.app import *
 from utils import *
 
@@ -15,6 +17,14 @@ CHARMM="/home/jbodosa/scratch/data/exec/gnu/charmm"
 ## Local M1
 #PACKMOL="/Users/jbodosa/Documents/UMD/Rotation/Lab/Work/data/packages/packmol-20.14.4-docs1/packmol"
 #CHARMM="/Users/jbodosa/Documents/UMD/Rotation/Lab/Work/data/packages/gnu/charmm"
+
+####################
+# Logger #
+####################
+logger = logging.getLogger(__name__)
+logging.basicConfig(filename='sysgen.log', level=logging.DEBUG, format='%(asctime)s %(message)s', datefmt='%m-%d-%Y %H:%M:%S >')
+logger.debug('sysGen started...')
+
 
 class sysGen:
     def __init__(self):
