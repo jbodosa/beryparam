@@ -18,3 +18,7 @@ $CHARMM <ion_vac.inp >ion_vac.out
 3. Add restrain to the counter-ions and create xml file of restrained system
 4. Probably also add a cleanme script and a testme script
 
+
+## NOTES
+- Problems adding water using charmm ff  [link](https://github.com/openmm/openmm/issues/3566)
+
