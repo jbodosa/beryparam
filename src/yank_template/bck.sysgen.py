@@ -10,13 +10,13 @@ import logging
 from openmm.app import *
 from utils import *
 
-# Remote zaratan
-PACKMOL="/home/jbodosa/scratch/data/exec/packmol/packmol"
-CHARMM="/home/jbodosa/scratch/data/exec/gnu/charmm"
+## Remote zaratan
+#PACKMOL="/home/jbodosa/scratch/data/exec/packmol/packmol"
+#CHARMM="/home/jbodosa/scratch/data/exec/gnu/charmm"
 
-## Local M1
-#PACKMOL="/Users/jbodosa/Documents/UMD/Rotation/Lab/Work/data/packages/packmol-20.14.4-docs1/packmol"
-#CHARMM="/Users/jbodosa/Documents/UMD/Rotation/Lab/Work/data/packages/gnu/charmm"
+# Local Mac M1
+PACKMOL="/Users/jbodosa/Documents/UMD/Rotation/Lab/Work/data/packages/packmol-20.14.4-docs1/packmol"
+CHARMM="/Users/jbodosa/Documents/UMD/Rotation/Lab/Work/data/packages/gnu/c49/charmm/bin/charmm"
 
 ####################
 # Logger #

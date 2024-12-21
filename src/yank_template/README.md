@@ -21,4 +21,5 @@ $CHARMM <ion_vac.inp >ion_vac.out
 
 ## NOTES
 - Problems adding water using charmm ff  [link](https://github.com/openmm/openmm/issues/3566)
+- MDAnalysis can ead and write crd but it might require segid in pdb or the psf. And it does not write the charmm-extended format.
 

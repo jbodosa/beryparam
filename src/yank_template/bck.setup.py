@@ -25,9 +25,9 @@ ion_position = target_position + distance * Vec3(*direction)
 print(f'Placing ion at {ion_position}')
 
 new_chain = pdb.topology.addChain()
-new_residue = pdb.topology.addResidue('K', new_chain)
+new_residue = pdb.topology.addResidue('POT', new_chain)
 # Manually create a new atom representing Na+
-ion_atom = pdb.topology.addAtom( 'K', Element.getBySymbol('K'), residue=new_residue)
+ion_atom = pdb.topology.addAtom( 'POT', Element.getBySymbol('K'), residue=new_residue)
 #pdb.topology.addAtom(ion_atom)
 pdb.positions.append(ion_position)
 
@@ -51,4 +51,4 @@ modeller.addSolvent(ff, model='tip3p', boxSize=Vec3(a, b, c)*unit.nanometers)
 #system = ff.createSystem(modeller.topology, nonbondedMethod=PME)
 ### water system
 output_filename = 'water.pdb'
-PDBFile.writeFile(modeller.topology, modeller.positions, open(output_filename, 'w'))
+PDBFile.writeFile(modeller.topology, pdb.positions, open(output_filename, 'w'))

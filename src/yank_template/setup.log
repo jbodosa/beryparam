@@ -1,12 +1,4 @@
-12-15-2024 17:10:35 > - __main__ - INFO - File 'recenter.pdb' deleted successfully.
-12-15-2024 17:10:35 > - __main__ - INFO - File 'recenter.psf' deleted successfully.
-12-15-2024 17:10:35 > - __main__ - INFO - File 'recenter.crd' deleted successfully.
-12-15-2024 17:10:35 > - __main__ - INFO - File 'recenter_off.pdb' deleted successfully.
-12-15-2024 17:10:35 > - __main__ - INFO - File 'box_ion.pdb' deleted successfully.
-12-15-2024 17:10:35 > - __main__ - INFO - File 'CLA.pdb' deleted successfully.
-12-15-2024 17:10:35 > - __main__ - INFO - sysgen started ...
-12-15-2024 17:10:35 > - __main__ - DEBUG - Recentered and wrote psf/pdb/crd
-12-15-2024 17:10:36 > - __main__ - INFO - System has 1 charge
-12-15-2024 17:10:36 > - __main__ - DEBUG - 
-12-15-2024 17:10:36 > - __main__ - DEBUG - Recentered and wrote psf/pdb/crd
-12-15-2024 17:10:37 > - __main__ - INFO - Done
+12-20-2024 23:35:25 > - root - INFO - Start logging ...
+12-20-2024 23:35:25 > - system - INFO - Set attributes of system.
+12-20-2024 23:35:25 > - system - INFO - Error [Errno 2] No such file or directory: 'sys_param.str'
+12-20-2024 23:35:25 > - system - INFO - PDB file does not exist.
