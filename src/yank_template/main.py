@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 
 import logging
 from system import *
@@ -41,7 +42,13 @@ def main():
     logging.info("Start logging ...")
     system = System()
     #system.read_pdb("../meso/meso_charmm.pdb")
-    system.read_pdb("../meso/meso_wrong.pdb")
+    system.read_pdb("../dmp/dmp.pdb")
+    system.convert_pdb2crd("dmp_convert.crd", use_CHARMM=False)
+    #   system.read_crd("../meso/meso_wrong.crd")
+    #   system.read_psf("../meso/meso_wrong.psf")
+    #system.write_pdb("dmp_c.pdb")
+    #   system.write_psf("meso_wrong.psf")
+    #   system.write_crd("meso_wrong.crd")
 
 if __name__ == '__main__':
     main()

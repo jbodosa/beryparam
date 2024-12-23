@@ -1,0 +1,37 @@
+* Debugging script for PDB reading
+*
+
+! Topology and parameter files
+stream toppar.str
+
+! Input and output files
+SET inputpdb  ../meso/meso_charmm.pdb
+SET outputpdb meso_c.pdb
+
+! Read sequence
+open read unit 30 card name @inputpdb
+read sequence pdb unit 30
+!print sequence
+close unit 30
+
+! Generate PSF
+!generate main setup first NTER last CTER
+generate DMP !main setup !first NTER last CTER
+! Print sequence and PSF for debugging
+print psf
+
+! Read coordinates
+open read unit 30 card name @inputpdb
+read coor pdb unit 30
+close unit 30
+
+! Print coordinates to verify
+print coor
+
+! Write CHARMM-format PDB
+open write unit 40 card name @outputpdb
+write coor pdb unit 40
+close unit 40
+
+stop
+

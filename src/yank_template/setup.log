@@ -1,4 +1,4 @@
-12-20-2024 23:35:25 > - root - INFO - Start logging ...
-12-20-2024 23:35:25 > - system - INFO - Set attributes of system.
-12-20-2024 23:35:25 > - system - INFO - Error [Errno 2] No such file or directory: 'sys_param.str'
-12-20-2024 23:35:25 > - system - INFO - PDB file does not exist.
+12-23-2024 17:21:14 > - root - INFO - Start logging ...
+12-23-2024 17:21:14 > - system - INFO - Set attributes of system.
+12-23-2024 17:21:14 > - system - INFO - defaultdict(<class 'str'>, {'forcefield': 'CHARMM', 'positive_ion': 'POT', 'negative_ion': 'CLA'})
+12-23-2024 17:21:14 > - system - INFO - Loaded pdb.
