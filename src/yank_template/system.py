@@ -172,13 +172,19 @@ class System:
 
     # FIX TODO
     # Create a CHARMM crd file from any pdb
-    def convert_pdb2crd(self, output_path, use_CHARMM=False):
+    def convert_pdb2crd(self, output_path, use_CHARMM=False, resname_fix=True, resname_old_list=list(), resname_new_list=list()):
         """
             Read the pdb file and write out the crd file.
         """
         try:
             if not use_CHARMM:
                 pdb_omm = PDBFile(self.pdb)
+
+                if resname_fix and len(resname_old_list) != 0:
+                    resname_dict = {}
+                    for resname_old, resname_new in zip(resname_old_list, resname_new_list):
+                        resname_dict[resname_old] = resname_new
+
                 with open(output_path, 'w') as crd_file:
                     # Write the CRD file header
                     crd_file.write(f"* CHARMM Coordinate File\n")
@@ -190,7 +196,6 @@ class System:
                     # Write the atomic data
                     for i, atom in enumerate(pdb_omm.topology.atoms()):
                         position = pdb_omm.positions[i]
-                        #segid = getattr(atom.residue, 'id', 'MGLYOL')
 
                         # Picked the format from MDAnalysis
                         # https://docs.mdanalysis.org/1.1.0/_modules/MDAnalysis/coordinates/CRD.html#CRDWriter
@@ -200,13 +205,18 @@ class System:
                         # "{chainID:<8.8s}  {resSeq:<8d}{tempfactor:20.10f}\n"),
                         #
                         # The resname and segname are wrong
-                        atom.residue.name="DMP"
-                        atom.residue.id="DMP"
+                        #  Replace resname_old with resname_new if given
+                        logger.debug("resname: "+atom.residue.name)
+                        logger.debug("id: "+atom.residue.id)
+                        segid = atom.residue.name
+                        if segid in resname_dict.keys():
+                            atom.residue.name = resname_dict[segid]
+                            atom.residue.id = resname_dict[segid]
                         crd_file.write(f"{i + 1:10d}{atom.residue.index + 1:10d}  {atom.residue.name:<8.8s}  {atom.name:<8.8s}{position.x:>20.10f}{position.y:20.10f}{position.z:20.10f}  {atom.residue.id:<8.8s}  {atom.residue.index + 1:<8d}{0:20.10f}\n")
                 crd_file.close()
                 return f"CRD file written to '{output_path}'"
         except FileNotFoundError:
             return("{file} does not exist.".format(file=self.pdb))
         except Exception as e:
-            return("Got error : {str(e)}".format(e=e))
+            return(f"Got error : {e}")
 
