@@ -45,6 +45,7 @@ def main():
     system.convert_pdb2crd("meso_convert.crd", use_CHARMM=False, resname_fix=True, resname_old_list=["MGL"], resname_new_list=["MGLYOL"])
     #system.read_crd("meso_convert.crd")
     system.recenter_crd(crd_infile="meso_convert.crd")
+    system.write_psf(psf_outfile="meso_charmm.psf")
 
 if __name__ == '__main__':
     main()

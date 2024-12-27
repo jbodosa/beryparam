@@ -1,12 +1,13 @@
-12-26-2024 19:13:15 > - root - INFO - Start logging ...
-12-26-2024 19:13:15 > - system - INFO - Set attributes of system.
-12-26-2024 19:13:15 > - system - DEBUG - defaultdict(<class 'str'>, {'forcefield': 'CHARMM', 'positive_ion': 'POT', 'negative_ion': 'CLA', 'mol_list': ['MGLYOL'], 'mol_n': ['1']})
-12-26-2024 19:13:15 > - system - DEBUG - forcefield CHARMM
-12-26-2024 19:13:15 > - system - DEBUG - positive_ion POT
-12-26-2024 19:13:15 > - system - DEBUG - negative_ion CLA
-12-26-2024 19:13:15 > - system - DEBUG - mol_list ['MGLYOL']
-12-26-2024 19:13:15 > - system - DEBUG - mol_n ['1']
-12-26-2024 19:13:15 > - system - INFO - defaultdict(<class 'str'>, {'forcefield': 'CHARMM', 'positive_ion': 'POT', 'negative_ion': 'CLA', 'mol_list': ['MGLYOL'], 'mol_n': ['1']})
-12-26-2024 19:13:15 > - system - INFO - Loaded pdb.
-12-26-2024 19:13:15 > - system - DEBUG - self.crd does not exist. Setting it to: meso_convert.crd
-12-26-2024 19:13:15 > - utils.write_recenter_inp - DEBUG - Wrote recenter inp
+12-27-2024 14:52:47 > - root - INFO - Start logging ...
+12-27-2024 14:52:47 > - system - INFO - Set attributes of system.
+12-27-2024 14:52:47 > - system - DEBUG - defaultdict(<class 'str'>, {'forcefield': 'CHARMM', 'positive_ion': 'POT', 'negative_ion': 'CLA', 'mol_list': ['MGLYOL'], 'mol_n': ['1']})
+12-27-2024 14:52:47 > - system - DEBUG - forcefield CHARMM
+12-27-2024 14:52:47 > - system - DEBUG - positive_ion POT
+12-27-2024 14:52:47 > - system - DEBUG - negative_ion CLA
+12-27-2024 14:52:47 > - system - DEBUG - mol_list ['MGLYOL']
+12-27-2024 14:52:47 > - system - DEBUG - mol_n ['1']
+12-27-2024 14:52:47 > - system - INFO - defaultdict(<class 'str'>, {'forcefield': 'CHARMM', 'positive_ion': 'POT', 'negative_ion': 'CLA', 'mol_list': ['MGLYOL'], 'mol_n': ['1']})
+12-27-2024 14:52:47 > - system - INFO - Loaded pdb.
+12-27-2024 14:52:47 > - system - DEBUG - self.crd does not exist. Setting it to: meso_convert.crd
+12-27-2024 14:52:47 > - utils.write_recenter_inp - DEBUG - Wrote recenter inp
+12-27-2024 14:52:48 > - utils.write_psf_inp - DEBUG - Wrote psf inp
