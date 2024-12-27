@@ -42,13 +42,9 @@ def main():
     logging.info("Start logging ...")
     system = System()
     system.read_pdb("../meso/meso_charmm.pdb")
-    #system.read_pdb("../dmp/dmp.pdb")
-    #system.convert_pdb2crd("dmp_convert.crd", use_CHARMM=False)
     system.convert_pdb2crd("meso_convert.crd", use_CHARMM=False, resname_fix=True, resname_old_list=["MGL"], resname_new_list=["MGLYOL"])
-    #   system.read_psf("../meso/meso_wrong.psf")
-    #system.write_pdb("dmp_c.pdb")
-    #   system.write_psf("meso_wrong.psf")
-    #   system.write_crd("meso_wrong.crd")
+    #system.read_crd("meso_convert.crd")
+    system.recenter_crd(crd_infile="meso_convert.crd")
 
 if __name__ == '__main__':
     main()

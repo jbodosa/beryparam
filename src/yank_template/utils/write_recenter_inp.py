@@ -12,7 +12,7 @@ ION_LIST = ["SOD", "POT", "CAL","CLA"]
 
 ### Writing a CHARMM input file
 ### Write the mol recenter script
-def write_recenter_inp(pdb_infile, pdb_outfile, mol_segid_list, mol_n_list):
+def write_recenter_inp(crd_infile, crd_outfile, mol_segid_list, mol_n_list):
     output_file = "recenter.inp"
 
     with open(output_file, 'w') as inp:
@@ -36,15 +36,10 @@ def write_recenter_inp(pdb_infile, pdb_outfile, mol_segid_list, mol_n_list):
         inp.write(f"stream toppar.str \n")
         inp.write(f"\n")
 
-        #inp.write(f"! Read the PDB file and generate PSF\n")
-        #inp.write(f"open read unit 30 card name {pdb_infile}\n")
-        #inp.write(f"read sequence pdb unit 30\n")
-        #inp.write(f"close unit 30\n")
-
         for mol_segid, mol_n in  zip(mol_segid_list, mol_n_list):
             if mol_segid not in ION_LIST:
                 # If not ion
-                inp.write(f"! read teh sequence\n")
+                inp.write(f"! read the sequence\n")
                 inp.write(f"read sequence {mol_segid} {mol_n}\n")
                 inp.write(f"generate {mol_segid}\n")
                 inp.write(f"\n")
@@ -55,67 +50,27 @@ def write_recenter_inp(pdb_infile, pdb_outfile, mol_segid_list, mol_n_list):
                 inp.write(f"generate {mol_segid} noangle nodihedral\n")
                 inp.write(f"\n")
 
-        inp.write("! Read the coordinates from the PDB file\n")
-        inp.write(f"open read unit 30 card name {pdb_infile}\n")
-        inp.write("read coor pdb unit 30 resid\n")
+
+        inp.write("! Read the coordinates from the CRD file\n")
+        inp.write(f"open read unit 30 card name {crd_infile}\n")
+        inp.write("read coor card unit 30 \n")
         inp.write("close unit 30\n")
         inp.write("\n")
 
-        inp.write("! Write the CHARMM-format PDB file\n")
-        inp.write(f"open write unit 40 card name {pdb_outfile}\n")
-        inp.write("write coor pdb unit 40\n")
+        inp.write("! Read and print coordinates\n")
+        inp.write("COOR STAT \n")
+        inp.write("\n")
+        inp.write("! Shift coordinates to recenter at (0, 0, 0) \n")
+        inp.write("COOR TRAN XDIR -?XAVE YDIR -?YAVE ZDIR -?ZAVE \n")
+        inp.write("\n")
+
+        inp.write("! Write the CHARMM-format CRD file\n")
+        inp.write(f"open write unit 40 card name {crd_outfile}\n")
+        inp.write("write coor card unit 40\n")
         inp.write("close unit 40\n")
         inp.write("\n")
         inp.write("stop")
-        #        ## Add sequence of molecule/system
-        #        inp.write(f"! Read in the mol/sys \n")
-        #        inp.write(f"read sequence {mol_resname} 1 \n")
-        #        inp.write(f"generate {mol_resname} \n")
-        #        inp.write(f"\n")
-        #
-        #        if ion_resname != "None" and int(ncharge) != 0:
-        #            ## If there are ions add their sequnece
-        #            inp.write(f"! Read in the ions \n")
-        #            inp.write(f"read sequence {ion_resname} {ncharge} \n")
-        #            inp.write(f"generate {ion_resname} \n")
-        #            inp.write(f"\n")
-        #
-        #        ## Add coordinates of molecule/system
-        #        inp.write(f"open read unit 90 card name output.crd \n")
-        #        inp.write(f"read coor unit 90 card resid \n")
-        #        inp.write(f"close unit 90\n")
-        #        inp.write(f"\n")
-        #        inp.write(f"define solute sele segid MGLYOL end \n")
-        #        inp.write(f"define SYS sele solute .and. ( .not. hydrogen ) end\n")
-        #        inp.write(f"cons harm absolute force 1.0 sele SYS end \n")
-        #        inp.write(f"\n")
-        #        inp.write(f"COOR STAT\n")
-        #        inp.write(f"COOR TRANSLATE XDIR -?XAVE YDIR -?YAVE ZDIR -?ZAVE\n")
-        #        inp.write(f"\n")
-        #        inp.write(f"open write unit 91 card name recenter.psf \n")
-        #        inp.write(f"write psf card unit 91  \n")
-        #        inp.write(f"close unit 91\n")
-        #        inp.write(f"\n")
-        #        inp.write(f"open write unit 92 card name recenter.crd \n")
-        #        inp.write(f"write coor card unit 92  \n")
-        #        inp.write(f"close unit 92\n")
-        #        inp.write(f"\n")
-        #        inp.write(f"open write unit 93 card name recenter_off.pdb \n")
-        #        inp.write(f"write coor pdb card unit 93 official \n")
-        #        inp.write(f"close unit 93\n")
-        #        inp.write(f"\n")
-        #        inp.write(f"open write unit 93 card name recenter.pdb \n")
-        #        inp.write(f"write coor pdb card unit 93  \n")
-        #        inp.write(f"close unit 93\n")
-        #        inp.write(f"\n")
-        #        inp.write(f"calc cgtot = int ( ?cgtot )\n")
-        #        inp.write(f"open write unit 94 card name sys_param.str\n")
-        #        inp.write(f"write title unit 94\n")
-        #        inp.write(f"* set ncharge = @cgtot ! not ?cgtot\n")
-        #        inp.write(f"*\n")
-        #        inp.write(f"\n")
-        #        inp.write(f"STOP\n")
         inp.close()
         logger.debug("Wrote recenter inp")
-    return(f"Recentered and wrote psf/pdb/crd")
+    return(f"Wrote recenter_inp for crd")
 

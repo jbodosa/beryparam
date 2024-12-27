@@ -1,6 +1,7 @@
-
+import logging
 from collections import defaultdict
 
+logger = logging.getLogger(__name__)
 ######################################
 # Read params from sys_param #
 ######################################
@@ -14,7 +15,14 @@ def parse_param(sys_param):
     f  = open(sys_param , 'r').readlines()
     for line in f:
         line = line.split()
-        param_dict[str(line[1]).lower()] = line[3]
 
-    #    print(param_dict)
+        if line[0] == "string":
+            param_dict[str(line[1]).lower()] = str(line[3])
+        elif line[0] == "float":
+            param_dict[str(line[1]).lower()] = float(line[3])
+        elif line[0] == "integer":
+            param_dict[str(line[1]).lower()] = int(line[3])
+        elif line[0] == "list":
+            param_dict[str(line[1]).lower()] = list(line[3:])
+
     return(param_dict)

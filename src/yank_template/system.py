@@ -6,13 +6,14 @@ import subprocess
 import shutil
 import logging
 
-from utils.recenter_pdb import recenter_pdb
+#from utils.recenter_crd import recenter_crd
 from utils.write_recenter_inp import write_recenter_inp
 
 from openmm.app import *
 
 from parse_param import *
 
+CHARMM="/Users/jbodosa/Documents/UMD/Rotation/Lab/Work/data/packages/gnu/c49/charmm/bin/charmm"
 
 ####################
 ####################
@@ -49,7 +50,9 @@ class System:
 
         try:
             param_dict = parse_param("sys_param.str")
+            logger.debug(param_dict)
             for key, value in param_dict.items():
+                logger.debug(str(key)+" " +str(value))
                 setattr(self, key, value)
             logger.info(param_dict)
         except Exception as e:
@@ -116,8 +119,8 @@ class System:
             # Step 2
             # Run CHARMM with recenter.inp and return new pdb
 
-            recenter_inp = write_recenter_inp("../meso/meso_charmm.pdb","meso_c.pdb", ["MGLYOL"], [1])
-            recnter_pdb = recenter_pdb("test")
+            #recenter_inp = write_recenter_inp("../meso/meso_charmm.pdb","meso_c.pdb", ["MGLYOL"], [1])
+            #recenter_pdb = recenter_pdb("test")
 
         # First recenter the pdb file
                 # TODO
@@ -206,8 +209,8 @@ class System:
                         #
                         # The resname and segname are wrong
                         #  Replace resname_old with resname_new if given
-                        logger.debug("resname: "+atom.residue.name)
-                        logger.debug("id: "+atom.residue.id)
+                        #logger.debug("resname: "+atom.residue.name)
+                        #logger.debug("id: "+atom.residue.id)
                         segid = atom.residue.name
                         if segid in resname_dict.keys():
                             atom.residue.name = resname_dict[segid]
@@ -219,4 +222,25 @@ class System:
             return("{file} does not exist.".format(file=self.pdb))
         except Exception as e:
             return(f"Got error : {e}")
+
+    def recenter_crd(self, crd_infile=""):
+        """
+        Recenter the self.crd and return the recntered crd.
+        """
+        try:
+            if self.crd != None:
+                logger.debug(f"self.crd exists : {self.crd}")
+            else:
+                self.crd = crd_infile
+                logger.debug(f"self.crd does not exist. Setting it to: {crd_infile}")
+
+            write_recenter_inp(str(self.crd),"meso_recenter.crd", self.mol_list, self.mol_n)
+            # Call CHARMM to recenter the sys and write psf
+            command = CHARMM+" < recenter.inp > recenter.out"
+            result = subprocess.run(command, shell=True, executable="/bin/bash",  capture_output=True, text=True, check=True)
+            return(result.stdout)
+        except Exception as e:
+            raise e
+        logger.debug("Ran recenter_crd")
+        return()
 
