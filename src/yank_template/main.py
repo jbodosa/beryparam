@@ -41,11 +41,13 @@ def main():
 
     logging.info("Start logging ...")
     system = System()
-    system.read_pdb("../meso/meso_charmm.pdb")
-    system.convert_pdb2crd("meso_convert.crd", use_CHARMM=False, resname_fix=True, resname_old_list=["MGL"], resname_new_list=["MGLYOL"])
+    system.read_pdb("../dmp/dmp.pdb")
+    #system.convert_pdb2crd("dmp_convert.crd", use_CHARMM=False, resname_fix=True, resname_old_list=["MGL"], resname_new_list=["MGLYOL"])
+    system.convert_pdb2crd("convert.crd", use_CHARMM=False, resname_fix=False, resname_old_list=[], resname_new_list=[])
     #system.read_crd("meso_convert.crd")
-    system.recenter_crd(crd_infile="meso_convert.crd")
-    system.write_psf(psf_outfile="meso_charmm.psf")
+    system.recenter_crd(crd_infile="convert.crd")
+    system.write_psf(psf_outfile="recenter.psf")
+    system.add_ions()
 
 if __name__ == '__main__':
     main()

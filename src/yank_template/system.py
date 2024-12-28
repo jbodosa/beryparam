@@ -9,6 +9,7 @@ import logging
 #from utils.recenter_crd import recenter_crd
 from utils.write_recenter_inp import write_recenter_inp
 from utils.write_psf_inp import write_psf_inp
+from utils.write_getcharge_inp import write_getcharge_inp
 
 from openmm.app import *
 
@@ -42,7 +43,7 @@ class System:
         # Can be defined in sys_param
         self.positive_ion = None
         self.negative_ion = None
-        self.net_charge = 0
+        self.ncharge = None
         self.forcefield = None
 
     ###########################
@@ -176,6 +177,7 @@ class System:
         # Call CHARMM to recenter the sys and write psf
         command = CHARMM+" < psf.inp > psf.out"
         result = subprocess.run(command, shell=True, executable="/bin/bash",  capture_output=True, text=True, check=True)
+        self.psf = psf_outfile
         return(result.stdout)
 
     # Create a CHARMM crd file from any pdb
@@ -203,23 +205,18 @@ class System:
                     # Write the atomic data
                     for i, atom in enumerate(pdb_omm.topology.atoms()):
                         position = pdb_omm.positions[i]
+                        #logger.debug(position)
+                        #logger.debug(atom)
 
                         # Picked the format from MDAnalysis
                         # https://docs.mdanalysis.org/1.1.0/_modules/MDAnalysis/coordinates/CRD.html#CRDWriter
                         #
-                        # "ATOM_EXT": ("{serial:10d}{totRes:10d}  {resname:<8.8s}  {name:<8.8s}"
-                        # "{pos[0]:20.10f}{pos[1]:20.10f}{pos[2]:20.10f}  "
-                        # "{chainID:<8.8s}  {resSeq:<8d}{tempfactor:20.10f}\n"),
-                        #
-                        # The resname and segname are wrong
-                        #  Replace resname_old with resname_new if given
-                        #logger.debug("resname: "+atom.residue.name)
-                        #logger.debug("id: "+atom.residue.id)
-                        segid = atom.residue.name
-                        if segid in resname_dict.keys():
-                            atom.residue.name = resname_dict[segid]
-                            atom.residue.id = resname_dict[segid]
-                            # Convert the positions from Angs to nanometer
+                        if resname_fix:
+                            segid = atom.residue.name
+                            if segid in resname_dict.keys():
+                                atom.residue.name = resname_dict[segid]
+                                atom.residue.id = resname_dict[segid]
+                                # Convert the positions from nanom to Angs
                         crd_file.write(f"{i + 1:10d}{atom.residue.index + 1:10d}  {atom.residue.name:<8.8s}  {atom.name:<8.8s}{position.x*10:>20.10f}{position.y*10:20.10f}{position.z*10:20.10f}  {atom.residue.id:<8.8s}  {atom.residue.index + 1:<8d}{0:20.10f}\n")
                 crd_file.close()
                 return f"CRD file written to '{output_path}'"
@@ -239,13 +236,53 @@ class System:
                 self.crd = crd_infile
                 logger.debug(f"self.crd does not exist. Setting it to: {crd_infile}")
 
-            write_recenter_inp(str(self.crd),"meso_recenter.crd", self.mol_list, self.mol_n)
+            write_recenter_inp(str(self.crd),"recenter.crd", self.mol_list, self.mol_n)
             # Call CHARMM to recenter the sys and write psf
             command = CHARMM+" < recenter.inp > recenter.out"
             result = subprocess.run(command, shell=True, executable="/bin/bash",  capture_output=True, text=True, check=True)
+            # FIX crd_outfile
+            self.crd = "recenter.crd"
             return(result.stdout)
         except Exception as e:
             raise e
         logger.debug("Ran recenter_crd")
         return()
+
+    def add_ions(self):
+
+        # Check the charge
+        if self.ncharge is None:
+            logger.debug("ncharge is None")
+            # Write the inp to read psf and crd and check ncharge
+            # and add appropriate counter-ions
+            write_getcharge_inp(self.crd, self.psf)
+            # Call CHARMM to recenter the sys and write psf
+            command = CHARMM+" < ions.inp > ions.out"
+            result = subprocess.run(command, shell=True, executable="/bin/bash",  capture_output=True, text=True, check=True)
+            # Output is psf_param.str
+            psf_param_dict = parse_param("psf_param.str")
+            logger.debug(psf_param_dict)
+            for key, value in psf_param_dict.items():
+                logger.debug(str(key)+" " +str(value))
+                setattr(self, key, value)
+            #logger.debug(psf_param_dict)
+            #logger.debug("ncharge: " +self.ncharge)
+            #logger.debug("xmax: "+self.xmax)
+
+        if self.ncharge == 0:
+            logger.debug("ncharge: " + str(self.ncharge))
+            logger.debug("counter_ion : None" )
+            logger.info("System neutral no ions added." )
+        elif self.ncharge >0: # Add negative ions
+            logger.debug("ncharge: " +str(self.ncharge))
+            logger.debug("counter_ion : "+ self.negative_ion )
+        elif self.ncharge <0: # Add positive ions
+            logger.debug("ncharge: " + str(self.ncharge))
+            logger.debug("counter_ion : "+ self.positive_ion )
+
+            # TODO add approp ions
+
+        return()
+
+
 

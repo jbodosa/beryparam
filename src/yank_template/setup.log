@@ -1,13 +1,25 @@
-12-27-2024 14:52:47 > - root - INFO - Start logging ...
-12-27-2024 14:52:47 > - system - INFO - Set attributes of system.
-12-27-2024 14:52:47 > - system - DEBUG - defaultdict(<class 'str'>, {'forcefield': 'CHARMM', 'positive_ion': 'POT', 'negative_ion': 'CLA', 'mol_list': ['MGLYOL'], 'mol_n': ['1']})
-12-27-2024 14:52:47 > - system - DEBUG - forcefield CHARMM
-12-27-2024 14:52:47 > - system - DEBUG - positive_ion POT
-12-27-2024 14:52:47 > - system - DEBUG - negative_ion CLA
-12-27-2024 14:52:47 > - system - DEBUG - mol_list ['MGLYOL']
-12-27-2024 14:52:47 > - system - DEBUG - mol_n ['1']
-12-27-2024 14:52:47 > - system - INFO - defaultdict(<class 'str'>, {'forcefield': 'CHARMM', 'positive_ion': 'POT', 'negative_ion': 'CLA', 'mol_list': ['MGLYOL'], 'mol_n': ['1']})
-12-27-2024 14:52:47 > - system - INFO - Loaded pdb.
-12-27-2024 14:52:47 > - system - DEBUG - self.crd does not exist. Setting it to: meso_convert.crd
-12-27-2024 14:52:47 > - utils.write_recenter_inp - DEBUG - Wrote recenter inp
-12-27-2024 14:52:48 > - utils.write_psf_inp - DEBUG - Wrote psf inp
+12-27-2024 17:00:16 > - root - INFO - Start logging ...
+12-27-2024 17:00:16 > - system - INFO - Set attributes of system.
+12-27-2024 17:00:16 > - system - DEBUG - defaultdict(<class 'str'>, {'forcefield': 'CHARMM', 'positive_ion': 'POT', 'negative_ion': 'CLA', 'mol_list': ['DMP'], 'mol_n': ['1']})
+12-27-2024 17:00:16 > - system - DEBUG - forcefield CHARMM
+12-27-2024 17:00:16 > - system - DEBUG - positive_ion POT
+12-27-2024 17:00:16 > - system - DEBUG - negative_ion CLA
+12-27-2024 17:00:16 > - system - DEBUG - mol_list ['DMP']
+12-27-2024 17:00:16 > - system - DEBUG - mol_n ['1']
+12-27-2024 17:00:16 > - system - INFO - defaultdict(<class 'str'>, {'forcefield': 'CHARMM', 'positive_ion': 'POT', 'negative_ion': 'CLA', 'mol_list': ['DMP'], 'mol_n': ['1']})
+12-27-2024 17:00:16 > - system - INFO - Loaded pdb.
+12-27-2024 17:00:16 > - system - DEBUG - self.crd does not exist. Setting it to: convert.crd
+12-27-2024 17:00:16 > - utils.write_recenter_inp - DEBUG - Wrote recenter inp
+12-27-2024 17:00:17 > - utils.write_psf_inp - DEBUG - Wrote psf inp
+12-27-2024 17:00:18 > - system - DEBUG - ncharge is None
+12-27-2024 17:00:18 > - utils.write_ions_inp - DEBUG - Wrote ions inp
+12-27-2024 17:00:18 > - system - DEBUG - defaultdict(<class 'str'>, {'ncharge': -1, 'xmax': 2.65707692, 'ymax': 2.053, 'zmax': 1.44884615, 'xmin': -3.21592308, 'ymin': -1.553, 'zmin': -0.899153846})
+12-27-2024 17:00:18 > - system - DEBUG - ncharge -1
+12-27-2024 17:00:18 > - system - DEBUG - xmax 2.65707692
+12-27-2024 17:00:18 > - system - DEBUG - ymax 2.053
+12-27-2024 17:00:18 > - system - DEBUG - zmax 1.44884615
+12-27-2024 17:00:18 > - system - DEBUG - xmin -3.21592308
+12-27-2024 17:00:18 > - system - DEBUG - ymin -1.553
+12-27-2024 17:00:18 > - system - DEBUG - zmin -0.899153846
+12-27-2024 17:00:18 > - system - DEBUG - ncharge: -1
+12-27-2024 17:00:18 > - system - DEBUG - counter_ion : POT

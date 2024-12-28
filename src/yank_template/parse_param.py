@@ -16,13 +16,13 @@ def parse_param(sys_param):
     for line in f:
         line = line.split()
 
-        if line[0] == "string":
+        if line[0].lower() == "string":
             param_dict[str(line[1]).lower()] = str(line[3])
-        elif line[0] == "float":
+        elif line[0].lower() == "float":
             param_dict[str(line[1]).lower()] = float(line[3])
-        elif line[0] == "integer":
+        elif line[0].lower() == "int":
             param_dict[str(line[1]).lower()] = int(line[3])
-        elif line[0] == "list":
+        elif line[0].lower() == "list":
             param_dict[str(line[1]).lower()] = list(line[3:])
 
     return(param_dict)

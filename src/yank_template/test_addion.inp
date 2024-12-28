@@ -1,0 +1,23 @@
+* Solvation and ion addition example
+*
+
+! 1. Read initial structure and topology/parameter files
+stream toppar.str
+
+READ PSF CARD NAME recenter.psf
+READ COOR CARD NAME recenter.crd
+
+! 2. Define periodic boundary conditions
+! Example: Cubic box of 60 Å
+CRYSTAL DEFINE CUBIC 30.0 30.0 30.0 90.0 90.0 90.0
+CRYSTAL BUILD NOPER 0
+
+! 3. Solvate the system with TIP3P water
+! Solvate creates a box of water around your system
+GENErate water PSF
+READ SEQU TIP3 100 !@NUMWATER
+READ PSF CARD NAME water.psf
+GENBOX SOLVATION TIP3P OFFSET 8.0 SIZE 60.0 ALSO WRITE UNIT.
+
+AlsoWR TEMP_READ+###
+
