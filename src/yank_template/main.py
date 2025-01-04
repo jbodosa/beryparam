@@ -2,6 +2,7 @@
 
 import logging
 from system import *
+from utils.waterbox import *
 
 # Clean up first
 file_path = ['recenter.pdb', 'recenter.psf', 'recenter.crd', 'recenter_off.pdb', 'box_ion.pdb', 'box_ion.psf', 'box_crd', 'POT.pdb', 'CLA.pdb', "setup.log", "app.log"]
@@ -48,6 +49,7 @@ def main():
     system.recenter_crd(crd_infile="convert.crd")
     system.write_psf(psf_outfile="recenter.psf")
     system.add_ions()
+    write_waterbox_inp(30,30,30)
 
 if __name__ == '__main__':
     main()

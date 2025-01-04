@@ -1,0 +1,23 @@
+! Load topology and parameter files
+stream toppar.str
+
+GENErate WATERS SETUP
+
+COOR INIT
+
+! Define a cubic crystal lattice
+CRYSTAL DEFINE CUBIC 30.0 30.0 30.0 90.0 90.0 90.0
+CRYSTAL BUILD NOPER 0
+
+! Create water segment
+!READ SEQU TIP3 1000
+! Fill the cubic box with water
+SOLVATe WATERS BOX 30.0 30.0 30.0
+
+! Minimize the water box
+MINIMIZE ABNR NSTEP 500
+
+! Save PSF and coordinates
+WRITE PSF CARD NAME waterbox.psf
+WRITE COOR CARD NAME waterbox.crd
+
