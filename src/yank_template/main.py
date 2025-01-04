@@ -49,7 +49,8 @@ def main():
     system.recenter_crd(crd_infile="convert.crd")
     system.write_psf(psf_outfile="recenter.psf")
     system.add_ions()
-    write_waterbox_inp(30,30,30)
+    #write_waterbox_inp(30,30,30)
+    solvate_system(["DMP"],[1])
 
 if __name__ == '__main__':
     main()
