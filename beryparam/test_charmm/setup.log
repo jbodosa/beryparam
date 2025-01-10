@@ -1,0 +1,25 @@
+01-04-2025 16:01:29 > - root - INFO - Start logging ...
+01-04-2025 16:01:29 > - system - INFO - Set attributes of system.
+01-04-2025 16:01:29 > - system - DEBUG - defaultdict(<class 'str'>, {'forcefield': 'CHARMM', 'positive_ion': 'POT', 'negative_ion': 'CLA', 'mol_list': ['DMP'], 'mol_n': ['1']})
+01-04-2025 16:01:29 > - system - DEBUG - forcefield CHARMM
+01-04-2025 16:01:29 > - system - DEBUG - positive_ion POT
+01-04-2025 16:01:29 > - system - DEBUG - negative_ion CLA
+01-04-2025 16:01:29 > - system - DEBUG - mol_list ['DMP']
+01-04-2025 16:01:29 > - system - DEBUG - mol_n ['1']
+01-04-2025 16:01:29 > - system - INFO - defaultdict(<class 'str'>, {'forcefield': 'CHARMM', 'positive_ion': 'POT', 'negative_ion': 'CLA', 'mol_list': ['DMP'], 'mol_n': ['1']})
+01-04-2025 16:01:29 > - system - INFO - Loaded pdb.
+01-04-2025 16:01:29 > - system - DEBUG - self.crd does not exist. Setting it to: convert.crd
+01-04-2025 16:01:29 > - utils.write_recenter_inp - DEBUG - Wrote recenter inp
+01-04-2025 16:01:30 > - utils.write_psf_inp - DEBUG - Wrote psf inp
+01-04-2025 16:01:30 > - system - DEBUG - ncharge is None
+01-04-2025 16:01:30 > - utils.write_getcharge_inp - DEBUG - Wrote ions inp
+01-04-2025 16:01:31 > - system - DEBUG - defaultdict(<class 'str'>, {'ncharge': -1, 'xmax': 2.65707692, 'ymax': 2.053, 'zmax': 1.44884615, 'xmin': -3.21592308, 'ymin': -1.553, 'zmin': -0.899153846})
+01-04-2025 16:01:31 > - system - DEBUG - ncharge -1
+01-04-2025 16:01:31 > - system - DEBUG - xmax 2.65707692
+01-04-2025 16:01:31 > - system - DEBUG - ymax 2.053
+01-04-2025 16:01:31 > - system - DEBUG - zmax 1.44884615
+01-04-2025 16:01:31 > - system - DEBUG - xmin -3.21592308
+01-04-2025 16:01:31 > - system - DEBUG - ymin -1.553
+01-04-2025 16:01:31 > - system - DEBUG - zmin -0.899153846
+01-04-2025 16:01:31 > - system - DEBUG - ncharge: -1
+01-04-2025 16:01:31 > - system - DEBUG - counter_ion : POT
