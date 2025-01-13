@@ -1,0 +1,56 @@
+
+options:
+  minimize: yes
+  verbose: yes
+  output_dir: explicit
+  default_number_of_iterations:  _NUM_ITER_ #1000
+  temperature: _TEMP_*kelvin # 298
+  pressure: 1*atmosphere
+  checkpoint_interval: 1
+  alchemical_pme_treatment: exact #direct-space
+  resume_setup: yes
+  resume_simulation: yes
+
+solvents:
+  water:
+    nonbonded_method: PME
+    nonbonded_cutoff: 12 * angstroms
+    switch_distance: 10 * angstroms
+  vacuum:
+    nonbonded_method: NoCutoff #PME
+
+systems:
+  hydration-system:
+    phase1_path: [mol_waterbox.xml, mol_waterbox.pdb]
+    phase2_path: [mol_vacuumbox.xml, mol_vacuumbox.pdb]
+    solvent1: water
+    solvent2: vacuum
+    solvent_dsl: not resname _RESNAME_ # SOD
+    charmm_parameter_files: [../forcefield/toppar_c36_jul20/top_all36_prot.rtf,
+                              ../forcefield/toppar_c36_jul20/par_all36m_prot.prm,
+                              ../forcefield/toppar_c36_jul20/top_all36_lipid.rtf,
+                              ../forcefield/toppar_c36_jul20/par_all36_lipid.prm,
+                              ../forcefield/toppar_c36_jul20/top_all36_na.rtf,
+                              ../forcefield/toppar_c36_jul20/par_all36_na.prm,
+                              ../forcefield/toppar_c36_jul20/top_all36_carb.rtf,
+                              ../forcefield/toppar_c36_jul20/par_all36_carb.prm,
+                              ../forcefield/toppar_c36_jul20/top_all36_cgenff.rtf,
+                              ../forcefield/toppar_c36_jul20/par_all36_cgenff.prm,
+                              ../forcefield/toppar_c36_jul20/toppar_water_ions_charmm.str,
+                              ../forcefield/toppar_c36_jul20/stream/lipid/toppar_all36_lipid_model_yalun.str]
+
+protocols:
+  hydration-protocol:
+    solvent1:
+      alchemical_path:
+        lambda_electrostatics: [1.00, 0.95, 0.90, 0.85, 0.80, 0.75, 0.70, 0.65, 0.60, 0.55, 0.50, 0.45, 0.40, 0.35, 0.30, 0.25, 0.20, 0.15, 0.10, 0.05, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
+        lambda_sterics:        [1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 0.90, 0.80, 0.70, 0.60, 0.50, 0.40, 0.30, 0.20, 0.10, 0.00]
+    solvent2:
+      alchemical_path:
+        lambda_electrostatics: [1.00, 0.95, 0.90, 0.85, 0.80, 0.75, 0.70, 0.65, 0.60, 0.55, 0.50, 0.45, 0.40, 0.35, 0.30, 0.25, 0.20, 0.15, 0.10, 0.05, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00]
+        lambda_sterics:        [1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 1.00, 0.90, 0.80, 0.70, 0.60, 0.50, 0.40, 0.30, 0.20, 0.10, 0.00]
+
+
+experiments:
+  system: hydration-system
+  protocol: hydration-protocol

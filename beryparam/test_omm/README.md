@@ -24,3 +24,8 @@ $CHARMM <ion_vac.inp >ion_vac.out
 - Problems adding water using charmm ff  [link](https://github.com/openmm/openmm/issues/3566)
 - MDAnalysis can ead and write crd but it might require segid in pdb or the psf. And it does not write the charmm-extended format.
 
+
+1. Run convert2xml
+2. Make vacuum box
+3. Make water box
+4. Write the yaml input file
