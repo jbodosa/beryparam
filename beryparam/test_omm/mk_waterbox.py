@@ -6,11 +6,11 @@ import parmed as pmd
 from openmm.app import Element
 
 # Read in the pdb
-#pdb_input = "../dmp/dmp_c.pdb"
-pdb_input = "../meso/meso_charmm.pdb"
+pdb_input = "../dmp/dmp_c.pdb"
+#pdb_input = "../meso/meso_charmm.pdb"
 # Read in the psf
-#psf_input = "../dmp/dmp_convert.psf"
-psf_input = "../meso/meso_charmm.psf"
+psf_input = "../dmp/dmp_convert.psf"
+#psf_input = "../meso/meso_charmm.psf"
 
 # Read in the convreted charmm forcefield
 forcefield = ForceField("charmm36_jul20.xml")
@@ -146,9 +146,9 @@ if sys_charge == 0:
 print(sys_charge)
 
 PDBFile.writeFile(modeller.topology, modeller.positions, open('mol_waterbox.pdb', 'w'))
-# Save the system with the restraint to an XML file
-with open("mol_waterbox.xml", "w") as f:
-    f.write(XmlSerializer.serialize(system))
+## Save the system with the restraint to an XML file
+#with open("mol_waterbox.xml", "w") as f:
+#    f.write(XmlSerializer.serialize(system))
 
 #
 ### Manually map atom types to CHARMM types

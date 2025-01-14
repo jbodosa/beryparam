@@ -2,7 +2,7 @@
 options:
   minimize: yes
   verbose: yes
-  output_dir: explicit
+  output_dir: run
   default_number_of_iterations:  10 #1000
   temperature: 298.0*kelvin # 298
   pressure: 1*atmosphere
@@ -21,11 +21,11 @@ solvents:
 
 systems:
   hydration-system:
-    phase1_path: [mol_vacuumbox.xml, mol_vacuumbox.pdb]
-    phase2_path: [mol_vacuumbox.xml, mol_vacuumbox.pdb]
+    phase1_path: [vacuum_with_restraint.xml,mol_vacuumbox_c.pdb]
+    phase2_path: [vacuum_with_restraint.xml,mol_vacuumbox_c.pdb]
     solvent1: vacuum
     solvent2: vacuum
-    solvent_dsl: not resname MGLYOL # SOD
+    solvent_dsl: not resname DMP #MGLYOL # SOD
     charmm_parameter_files: [../forcefield/toppar_c36_jul20/top_all36_prot.rtf,
                               ../forcefield/toppar_c36_jul20/par_all36m_prot.prm,
                               ../forcefield/toppar_c36_jul20/top_all36_lipid.rtf,

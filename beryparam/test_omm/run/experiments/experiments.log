@@ -1,0 +1,57 @@
+2025-01-14 16:41:45,929 - DEBUG - yank.experiment - Cannot find ligand specification. Alchemically modifying the whole solute.
+2025-01-14 16:41:45,929 - DEBUG - yank.experiment - DSL string for the solvent: "not resname DMP"
+2025-01-14 16:41:45,930 - INFO - yank.experiment - Reading phase solvent1
+2025-01-14 16:41:45,930 - DEBUG - yank.pipeline - xml: vacuum_with_restraint.xml
+2025-01-14 16:41:45,930 - DEBUG - yank.pipeline - pdb: mol_vacuumbox_c.pdb
+2025-01-14 16:41:45,943 - WARNING - openmmtools.multistate.multistatesampler - Warning: The openmmtools.multistate API is experimental and may change in future releases
+2025-01-14 16:41:45,952 - DEBUG - openmmtools.multistate.multistatesampler - nvidia-smi command failed: /bin/sh: nvidia-smi: command not found
+, this is expected if there is no GPU available
+2025-01-14 16:41:45,953 - INFO - yank.experiment - Reading phase solvent2
+2025-01-14 16:41:45,953 - DEBUG - yank.pipeline - xml: vacuum_with_restraint.xml
+2025-01-14 16:41:45,953 - DEBUG - yank.pipeline - pdb: mol_vacuumbox_c.pdb
+2025-01-14 16:41:45,962 - WARNING - openmmtools.multistate.multistatesampler - Warning: The openmmtools.multistate API is experimental and may change in future releases
+2025-01-14 16:41:45,969 - DEBUG - openmmtools.multistate.multistatesampler - nvidia-smi command failed: /bin/sh: nvidia-smi: command not found
+, this is expected if there is no GPU available
+2025-01-14 16:41:45,969 - DEBUG - mpiplus.mpiplus - Single node: executing <function ExperimentBuilder._save_analysis_script at 0x16546bf70>
+2025-01-14 16:41:45,970 - WARNING - yank.experiment - WARNING! You have specified both a solute-only trajectory AND a checkpoint interval of 1! You are about write the trajectory of the solute twice!
+This can be okay if you are running explicit solvent and want faster retrieval of the solute atoms, but in implicit solvent, this is redundant.
+2025-01-14 16:41:45,970 - WARNING - openmmtools.multistate.multistatereporter - Warning: The openmmtools.multistate API is experimental and may change in future releases
+2025-01-14 16:41:45,970 - DEBUG - openmmtools.multistate.multistatereporter - Initial checkpoint file automatically chosen as run/experiments/solvent1_checkpoint.nc
+2025-01-14 16:41:45,975 - DEBUG - yank.yank - Creating alchemically-modified states...
+2025-01-14 16:41:45,975 - DEBUG - openmmtools.alchemy - Dictionary of interacting alchemical regions: frozenset()
+2025-01-14 16:41:45,975 - DEBUG - openmmtools.alchemy - Using 1 alchemical regions
+2025-01-14 16:41:45,978 - DEBUG - openmmtools.alchemy - Adding steric interaction groups between  and the environment.
+2025-01-14 16:41:45,979 - DEBUG - openmmtools.alchemy - Adding a steric interaction group between group  and .
+2025-01-14 16:41:45,979 - DEBUG - openmmtools.alchemy - Adding electrostatic interaction groups between  and the environment.
+2025-01-14 16:41:45,979 - DEBUG - openmmtools.alchemy - Adding a electrostatic interaction group between group  and .
+2025-01-14 16:41:45,980 - DEBUG - openmmtools.utils.utils - Create alchemically modified system took    0.005s
+2025-01-14 16:41:45,988 - DEBUG - yank.yank - Creating expanded cutoff states...
+2025-01-14 16:41:45,988 - WARNING - yank.yank - The requested anisotropic dispersion correction won't be computed since the system is non-periodic.
+2025-01-14 16:41:45,988 - DEBUG - yank.yank - Creating sampler object...
+2025-01-14 16:41:45,988 - DEBUG - mpiplus.mpiplus - Single node: executing <bound method MultiStateReporter.storage_exists of <openmmtools.multistate.multistatereporter.MultiStateReporter object at 0x165dc7e20>>
+2025-01-14 16:41:45,990 - DEBUG - mpiplus.mpiplus - Single node: executing <function ReplicaExchangeSampler._display_citations at 0x137812820>
+2025-01-14 16:41:45,990 - DEBUG - mpiplus.mpiplus - Single node: executing <function MultiStateSampler._display_citations at 0x134f0f8b0>
+2025-01-14 16:41:45,990 - DEBUG - mpiplus.mpiplus - Single node: executing <function MultiStateSampler._initialize_reporter at 0x134f0fb80>
+2025-01-14 16:41:46,004 - DEBUG - openmmtools.multistate.multistatereporter - Serialized state thermodynamic_states/0 is  2937B | 2.868KB | 0.003MB
+2025-01-14 16:41:46,013 - DEBUG - openmmtools.utils.utils - Storing thermodynamic states took    0.011s
+2025-01-14 16:41:46,013 - DEBUG - openmmtools.multistate.multistatesampler - Storing general ReplicaExchange options...
+2025-01-14 16:41:46,018 - DEBUG - mpiplus.mpiplus - Single node: executing <function MultiStateSampler._report_iteration at 0x134f0fca0>
+2025-01-14 16:41:46,018 - DEBUG - mpiplus.mpiplus - Single node: executing <function MultiStateSampler._report_iteration_items at 0x134f0ff70>
+2025-01-14 16:41:46,024 - DEBUG - openmmtools.utils.utils - Storing sampler states took    0.006s
+2025-01-14 16:41:46,034 - DEBUG - openmmtools.utils.utils - Writing iteration information to storage took    0.015s
+2025-01-14 16:41:46,035 - DEBUG - yank.yank - Minimizing 1 sampler states in the reference thermodynamic state
+2025-01-14 16:41:46,035 - DEBUG - mpiplus.mpiplus - Running _minimize_sampler_state serially.
+2025-01-14 16:41:46,616 - DEBUG - yank.yank - Sampler state 1/21: initial energy   85.433kT
+2025-01-14 16:41:46,616 - DEBUG - yank.yank - Using FIRE: tolerance 1.0 kJ/(nm mol) max_iterations 1000
+2025-01-14 16:41:50,938 - DEBUG - yank.yank - Sampler state 1/21: final energy   85.433kT
+2025-01-14 16:41:50,946 - DEBUG - mpiplus.mpiplus - Single node: executing <bound method MultiStateReporter.write_sampler_states of <openmmtools.multistate.multistatereporter.MultiStateReporter object at 0x165dc7e20>>
+2025-01-14 16:41:50,958 - DEBUG - openmmtools.utils.utils - Storing sampler states took    0.012s
+2025-01-14 16:41:50,958 - DEBUG - openmmtools.multistate.multistatesampler - Minimizing all replicas...
+2025-01-14 16:41:50,959 - DEBUG - mpiplus.mpiplus - Running _minimize_replica serially.
+2025-01-14 16:41:51,009 - DEBUG - openmmtools.multistate.multistatesampler - FIREMinimizationIntegrator: Minimize using CPU platform.
+2025-01-14 16:41:51,020 - DEBUG - openmmtools.multistate.multistatesampler - Replica 1/21: initial energy   85.433kT
+2025-01-14 16:41:51,020 - DEBUG - openmmtools.multistate.multistatesampler - Using FIRE: tolerance 1.0 kJ/(nm mol) max_iterations 1000
+2025-01-14 16:42:03,580 - DEBUG - openmmtools.multistate.multistatesampler - Replica 1/21: final energy   85.433kT
+2025-01-14 16:42:03,581 - DEBUG - openmmtools.multistate.multistatesampler - FIREMinimizationIntegrator: Minimize using CPU platform.
+2025-01-14 16:42:03,587 - DEBUG - openmmtools.multistate.multistatesampler - Replica 2/21: initial energy   78.702kT
+2025-01-14 16:42:03,588 - DEBUG - openmmtools.multistate.multistatesampler - Using FIRE: tolerance 1.0 kJ/(nm mol) max_iterations 1000

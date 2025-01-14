@@ -15689,7 +15689,7 @@
       <Bond atomName1="C3'" atomName2="H33'"/>
       <AllowPatch name="MET1"/>
     </Residue>
-    <Residue name="DMEP">
+        <!--    <Residue name="DMEP">
       <Atom name="P1" type="PG1" charge="1.5"/>
       <Atom name="O3" type="OG2P1" charge="-0.78"/>
       <Atom name="O4" type="OG2P1" charge="-0.78"/>
@@ -15716,7 +15716,7 @@
       <Bond atomName1="C2" atomName2="H22"/>
       <Bond atomName1="C2" atomName2="H23"/>
       <AllowPatch name="MET1"/>
-    </Residue>
+    </Residue> -->
     <Residue name="MP_0">
       <Atom name="C1" type="CG331" charge="-0.17"/>
       <Atom name="O1" type="OG303" charge="-0.56"/>
