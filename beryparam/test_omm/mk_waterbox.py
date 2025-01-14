@@ -42,6 +42,10 @@ for i in range(system.getNumParticles()):
 sys_charge = np.round(sum(charges).value_in_unit(elementary_charge), decimals=1)
 ## TEST
 #sys_charge = 1.0
+if sys_charge == 0:
+    ## Otherwise sys_charge is -0.0
+    sys_charge = 0.0
+print(sys_charge)
 
 def add_inverted_flat_bottom_restraint(system=system, atom1=5, atom2=14):
     # Define the custom inverted flat-bottom restraint parameters
@@ -108,7 +112,6 @@ elif sys_charge <0:
     modeller = add_ion(modeller, ref_index=5, atomic_num=19)
     system = add_inverted_flat_bottom_restraint(system, atom1=6, atom2=14 )
     system.getNumConstraints()
-
 elif sys_charge >0:
 # Add chloride ions
     num_particles = system.getNumParticles()
@@ -118,8 +121,31 @@ elif sys_charge >0:
     system.getNumConstraints()
 
 modeller.addSolvent(forcefield, model="tip3p", boxSize=Vec3(3.0, 3.0, 3.0)*nanometers, neutralize=False)
-PDBFile.writeFile(modeller.topology, modeller.positions, open('mol_waterbox.pdb', 'w'))
 
+# Re-Create OpenMM system
+system = forcefield.createSystem(
+    topology= modeller.topology,
+    nonbondedMethod=PME,
+    nonbondedCutoff=1.2 * nanometers,
+    switchDistance=1.0 * nanometers,
+    constraints=HBonds
+)
+
+nonbonded = [f for f in system.getForces() if isinstance(f, NonbondedForce)][0]
+
+charges = []
+for i in range(system.getNumParticles()):
+    charge, sigma, epsilon = nonbonded.getParticleParameters(i)
+    charges.append(charge)
+
+sys_charge = np.round(sum(charges).value_in_unit(elementary_charge), decimals=1)
+#sys_charge = 1.0
+if sys_charge == 0:
+    ## Otherwise sys_charge is -0.0
+    sys_charge = 0.0
+print(sys_charge)
+
+PDBFile.writeFile(modeller.topology, modeller.positions, open('mol_waterbox.pdb', 'w'))
 # Save the system with the restraint to an XML file
 with open("mol_waterbox.xml", "w") as f:
     f.write(XmlSerializer.serialize(system))
